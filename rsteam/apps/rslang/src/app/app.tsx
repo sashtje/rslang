@@ -1,9 +1,16 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import styles from './app.module.scss';
-import NxWelcome from './nx-welcome';
+import {BrowserRouter} from 'react-router-dom';
+import Navbar from '../components/UI/navbar/Navbar';
+import AppRouter from '../components/AppRouter';
 
-export function App() {
-  return <NxWelcome title="rslang" />;
+function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <AppRouter />
+    </BrowserRouter>
+  );
 }
 
 export default App;
