@@ -1,5 +1,56 @@
 .footer {
   flex: 0 0 60px;
-  background-color: #ffffff;
-  box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.5);
+  background-color: #056dea;
+  box-shadow: 0 -3px 3px rgba(0, 0, 0, 0.3);
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__rsschool-link {
+    display: block;
+
+    &:hover {
+      svg {
+        transform: scale(1.2);
+      }
+    }
+
+    svg {
+      height: 30px;
+      transition: 0.5s;
+    }
+  }
+
+  &__copyright {
+    color: #ffffff;
+  }
+
+  &__authors {
+    display: flex;
+    gap: 10px;
+
+    &-Stas,
+    &-Sasha {
+      display: block;
+
+      &:hover {
+        img {
+          border-color: rgb(126, 255, 255);
+          transform: scale(1.2);
+        }
+      }
+
+      img {
+        display: block;
+        border-radius: 50%;
+        height: 40px;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        transition: 0.5s;
+      }
+    }
+  }
 }

@@ -6,7 +6,9 @@ const Home = () => {
   return (
     <div className='container-wrapper'>
       <main className='home'>
-        <h1>RSLang</h1>
+        <div className='container-inner'>
+          <h1>RSLang</h1>
+        </div>
       </main>
       <Footer />
     </div>

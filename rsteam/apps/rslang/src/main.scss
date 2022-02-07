@@ -35,3 +35,9 @@
   flex-direction: column;
   min-height: calc(100vh - 60px);
 }
+
+.container-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px;
+}

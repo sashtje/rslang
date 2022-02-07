@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import cl from './Navbar.module.css';
+import './Navbar.scss';
 
 const Navbar = () => {
   return (
-    <header className={cl['navbar']}>
+    <header className='navbar'>
       {/* <Link to='/'>Home</Link>
       <Link to='/our-team'>Our team</Link>
       <Link to='/textbook'>Textbook</Link>
