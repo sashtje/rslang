@@ -14,10 +14,10 @@ const Footer = () => {
 
         <div className='footer__authors'>
           <a className='footer__authors-Stas' href="https://github.com/Inv1nc1ble" target='_blank'>
-            <img src="./assets/Stas.jfif" alt="Go to github of Inv1nc1ble" />
+            <img src="./assets/img/avatars/Stas.jfif" alt="Go to github of Inv1nc1ble" />
           </a>
           <a className='footer__authors-Sasha' href="https://github.com/sashtje" target='_blank'>
-            <img src="./assets/Sashtje.jpg" alt="Go to github of Sashtje" />
+            <img src="./assets/img/avatars/Sashtje.jpg" alt="Go to github of Sashtje" />
           </a>
         </div>
       </div>
