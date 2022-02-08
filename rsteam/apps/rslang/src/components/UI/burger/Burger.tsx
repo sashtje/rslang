@@ -15,16 +15,16 @@ const Burger = () => {
     setIsMenuOpen(false);
   };
 
-  useEffect(() => {
-    const onClick = () => {
-      if (isMenuOpen) {
-        setIsMenuOpen(false);
-      }
-    };
+  const onClick = isMenuOpen => {
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+  };
 
+  useEffect(() => {
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
-  }, [isMenuOpen]);
+  }, []);
 
   return (
     <nav className={isMenuOpen ? "main-menu main-menu__is_open" : "main-menu"}>
