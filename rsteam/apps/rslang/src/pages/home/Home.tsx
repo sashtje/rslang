@@ -7,7 +7,7 @@ const Home = () => {
     <div className='container-wrapper'>
       <main className='home'>
         <div className='container-inner'>
-          <h1>RSLang</h1>
+          <h1>RsLang</h1>
         </div>
       </main>
       <Footer />

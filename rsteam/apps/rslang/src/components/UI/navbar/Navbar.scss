@@ -1,6 +1,38 @@
+$logo-font: 'Source Serif Pro', serif;
+
 .navbar {
-  display: flex;
-  gap: 20px;
-  min-height: 60px;
-  background-color: #056dea;
+  height: 60px;
+  background-color: #ec615b;
+
+  &__container {
+    height: 100%;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: $logo-font;
+    font-size: 1.5rem;
+  }
+
+  &__login {
+    display: block;
+
+    &:hover {
+      & .navbar__login-icon {
+        transform: scale(1.2);
+      }
+    }
+
+    &-icon {
+      display: block;
+      width: 35px;
+      transition: 0.5s;
+    }
+  }
 }
+

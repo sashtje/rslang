@@ -1,6 +1,6 @@
 .footer {
   flex: 0 0 60px;
-  background-color: #056dea;
+  background-color: #ec615b;
   box-shadow: 0 -3px 3px rgba(0, 0, 0, 0.3);
 
   &__container {
@@ -39,7 +39,7 @@
 
       &:hover {
         img {
-          border-color: rgb(126, 255, 255);
+          border-color: #ffff00;
           transform: scale(1.2);
         }
       }
@@ -48,7 +48,7 @@
         display: block;
         border-radius: 50%;
         height: 40px;
-        border: 1px solid rgba(0, 0, 0, 0.5);
+        border: 1px solid #ff0000;
         transition: 0.5s;
       }
     }
