@@ -57,7 +57,7 @@ $headers-font: 'Neue Machina', sans-serif;
 .container-inner {
   max-width: 1660px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 0 20px;
 }
 
 .main {
@@ -75,6 +75,11 @@ $headers-font: 'Neue Machina', sans-serif;
   font-weight: 600;
   padding: 16px 55px;
   transition: 0.5s;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
 
   &:hover {
     background: #e85935;
