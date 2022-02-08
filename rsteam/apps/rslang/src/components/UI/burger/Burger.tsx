@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './Burger.scss';
 import {Link} from 'react-router-dom';
 
 const Burger = () => {

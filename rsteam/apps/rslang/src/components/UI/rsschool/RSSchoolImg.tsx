@@ -1,5 +1,4 @@
 import React from 'react';
-import './RSSchoolImg.scss';
 
 const RSSchoolImg = () => {
   return (

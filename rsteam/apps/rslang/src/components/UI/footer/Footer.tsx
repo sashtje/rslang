@@ -1,5 +1,4 @@
 import React from 'react';
-import './Footer.scss';
 import RSSchoolImg from '../rsschool/RSSchoolImg';
 
 const Footer = () => {

@@ -1,12 +1,12 @@
 import React from 'react';
 import Footer from '../../components/UI/footer/Footer';
 
-const Home = () => {
+const Login = () => {
   return (
     <div className='container-wrapper'>
-      <main className='home main'>
+      <main className='login main'>
         <div className='container-inner'>
-          <h1>RsLang</h1>
+          <h1>Login</h1>
         </div>
       </main>
       <Footer />
@@ -14,4 +14,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Login;
