@@ -33,6 +33,7 @@
     margin: 0;
     overflow: hidden;
     transition: 0.5s;
+    z-index: 999;
   }
 
   &__link {
