@@ -12,7 +12,7 @@ const Home = () => {
               <h1 className='home-intro__title'>
                 Онлайн сервис английского языка с нуля
               </h1>
-              <p className='home-intro__subtitle'>Разговорный английский. Интенсивная программа: от Elementary до Upper-Intermediate за 12 месяцев</p>
+              <p className='home-intro__subtitle'>Эффективный, увлекательный и абсолютно бесплатный способ выучить английский язык. Пополняй с нами свой словарный запас каждый день и открой для себя окно в мир новых удивительных возможностей.</p>
               <div className='home-intro__controls'>
                 <Link className='btn' to='/login'>Записаться</Link>
                 <a className='btn btn_is_about' href="#home-features">Подробнее</a>
@@ -34,7 +34,7 @@ const Home = () => {
                   <img src="./../../assets/svg/home-page/textbook.svg" alt="" />
                 </div>
                 <h3 className='home-card__title'>Учебник</h3>
-                <div className='home-card__description'>Более 3500 тысячи слов для изучения, разбиты на разделы по уровню твоей подготовки с удобной навигацией</div>
+                <div className='home-card__description'>Наша коллекция содержит 3600 слов для изучения, которые разбиты на разделы по уровню твоей подготовки с удобной навигацией</div>
               </div>
 
               <div className='home-card'>
@@ -42,7 +42,7 @@ const Home = () => {
                   <img src="./../../assets/svg/home-page/dictionary.svg" alt="" />
                 </div>
                 <h3 className='home-card__title'>Словарь</h3>
-                <div className='home-card__description'>Более 3500 тысячи слов для изучения, разбиты на разделы по уровню твоей подготовки с удобной навигацией</div>
+                <div className='home-card__description'>Можно помечать сложные слова, чтобы уделить им больше внимания при изучении. А также можно отмечать уже изученные слова, чтобы больше к ним не возвращаться.</div>
               </div>
 
               <div className='home-card'>
@@ -50,7 +50,7 @@ const Home = () => {
                   <img src="./../../assets/svg/home-page/statistics.svg" alt="" />
                 </div>
                 <h3 className='home-card__title'>Статистика</h3>
-                <div className='home-card__description'>Более 3500 тысячи слов для изучения, разбиты на разделы по уровню твоей подготовки с удобной навигацией</div>
+                <div className='home-card__description'>Удобная статистика будет показывать твой ежедневный прогресс, и поможет поддерживать твою мотивацию продолжать учёбу.</div>
               </div>
 
               <div className='home-card'>
@@ -58,7 +58,7 @@ const Home = () => {
                   <img src="./../../assets/svg/home-page/games.svg" alt="" />
                 </div>
                 <h3 className='home-card__title'>Игры</h3>
-                <div className='home-card__description'>Более 3500 тысячи слов для изучения, разбиты на разделы по уровню твоей подготовки с удобной навигацией</div>
+                <div className='home-card__description'>Учись играючи. Увлекательные игры станут отличным помощником для закрепления слов. Проведи время приятно и полезно за изучением английского языка.</div>
               </div>
             </div>
           </section>
