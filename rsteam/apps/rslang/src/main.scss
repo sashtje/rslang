@@ -1,0 +1,99 @@
+$main-font: 'Inter', sans-serif;
+$logo-font: 'Source Serif Pro', serif;
+$headers-font: 'Neue Machina', sans-serif;
+
+@font-face {
+    font-family: 'Neue Machina';
+    src: url('./assets/fonts/NeueMachina-Bold.eot');
+    src: local('Neue Machina Bold'), local('NeueMachina-Bold'),
+        url('./assets/fonts/NeueMachina-Bold.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/NeueMachina-Bold.woff2') format('woff2'),
+        url('./assets/fonts/NeueMachina-Bold.woff') format('woff'),
+        url('./assets/fonts/NeueMachina-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+:root {
+  font-size: 1em;
+  box-sizing: border-box;
+  font-family: $main-font;
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+/* Scrollbar */
+/* width */
+::-webkit-scrollbar {
+  width: 1rem;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #f3d6d1 0, #ccc8c7, #f3d6d1);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #918f8f;
+  border-radius: 1rem;
+  box-shadow: inset 0.125rem 0.125rem 0.125rem rgba(255, 255, 255, 0.5),
+    inset -0.125rem -0.125rem 0.125rem rgba(0, 0, 0, 0.5);
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #6d6c6c;
+}
+
+.container-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
+}
+
+.container-inner {
+  max-width: 1660px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.main {
+  flex: 1 0 auto;
+}
+
+.btn {
+  background: #ed7051;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 16px 55px;
+  transition: 0.5s;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &:hover {
+    background: #e85935;
+  }
+
+  &_is_about {
+    border: 1px solid #9a9a9a;
+    background-color: transparent;
+    color: #414141;
+
+    &:hover {
+      background: #fff6f4;
+      border-color: #e85935;
+      color: #e85935;
+    }
+  }
+}

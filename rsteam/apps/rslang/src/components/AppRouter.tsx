@@ -1,7 +1,7 @@
 import React from 'react';
 import {Routes, Route, Navigate} from 'react-router-dom';
 import {routes} from '../router';
-import Page404 from '../pages/Page404';
+import Page404 from '../pages/page404/Page404';
 
 const AppRouter = () => {
   return (
