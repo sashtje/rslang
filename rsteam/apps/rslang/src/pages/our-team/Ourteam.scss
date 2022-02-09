@@ -1,0 +1,159 @@
+$headers-font: 'Neue Machina', sans-serif;
+
+.our-team {
+  box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.3);
+  padding: 80px 0 60px 0;
+  color: #151515;
+
+  @media screen and (max-width: 1000px) {
+    padding-top: 60px;
+  }
+
+  &__title {
+    position: relative;
+    font-family: $headers-font;
+    font-weight: bold;
+    font-size: 46px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    max-width: 350px;
+    margin: 0 auto;
+    text-align: center;
+
+    @media screen and (max-width: 1000px) {
+      font-size: 30px;
+      max-width: 270px;
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      width: 67px;
+      height: 73px;
+      background-image: url('./assets/svg/about-us-page/effect.svg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      top: -35px;
+      left: -60px;
+
+      @media screen and (max-width: 1000px) {
+        width: 40px;
+        height: 50px;
+        top: -25px;
+        left: -10px;
+      }
+    }
+  }
+
+  &__members-block {
+    max-width: 1410px;
+    margin: 0 auto;
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+    @media screen and (max-width: 500px) {
+      flex-direction: column-reverse;
+      margin-top: 40px;
+    }
+  }
+
+  &__member {
+    flex: 0 1 580px;
+
+    @media screen and (max-width: 500px) {
+      flex: 0 1 auto;
+    }
+  }
+}
+
+.our-team-member {
+  padding: 50px 20px 30px 20px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  box-shadow: 0px 8px 30px rgba(182, 185, 191, 0.3);
+  border-radius: 8px;
+
+  @media screen and (max-width: 900px) {
+    background-size: cover;
+    background-position: center;
+  }
+
+  &_is_first-member {
+    background-image: url('./assets/svg/about-us-page/background-1.svg');
+  }
+
+  &_is_second-member {
+    background-image: url('./assets/svg/about-us-page/background-2.svg');
+  }
+
+  &__photo {
+    max-width: 300px;
+    margin: 0 auto;
+
+    img {
+      display: block;
+      max-width: 100%;
+      border-radius: 50%;
+    }
+  }
+
+  &__name {
+    margin-top: 90px;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 32px;
+    letter-spacing: -0.01em;
+    text-align: center;
+
+    @media screen and (max-width: 1000px) {
+      margin-top: 50px;
+      font-size: 20px;
+      line-height: 26px;
+    }
+  }
+
+  &__subtitle {
+    margin-top: 15px;
+    text-transform: uppercase;
+    color: #ed7051;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 155%;
+    text-align: center;
+  }
+
+  &__github {
+    margin: 0 auto;
+    margin-top: 20px;
+    display: block;
+    width: 40px;
+
+    &:hover svg {
+      color: #e85935;
+      transform: scale(1.2);
+    }
+
+    svg {
+      color: #151515;
+      max-width: 100%;
+      transition: 0.3s;
+    }
+  }
+
+  &__about {
+    margin-top: 30px;
+    font-size: 18px;
+    line-height: 155%;
+    text-align: center;
+    color: #414141;
+
+    @media screen and (max-width: 1000px) {
+      margin-top: 20px;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+}
