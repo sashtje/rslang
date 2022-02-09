@@ -233,6 +233,12 @@ $headers-font: 'Neue Machina', sans-serif;
   border-radius: 8px;
   background-color: #ffffff;
   color: #151515;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: #fdf5ea;
+  }
 
   @media screen and (max-width: 420px) {
     flex: 0 1 auto;
