@@ -1,0 +1,32 @@
+.page404 {
+  box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.3);
+  background-image: url('./assets/img/page404/404.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+    justify-content: flex-end;
+  }
+
+  &__link {
+    display: block;
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    background-color: #ed7051;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.2;
+    border-radius: 8px;
+    transition: 0.3s;
+
+    &:hover {
+      background-color: #e85935;
+    }
+  }
+}
