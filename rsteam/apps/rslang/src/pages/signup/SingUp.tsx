@@ -8,7 +8,7 @@ const SingUp = () => {
     <div className='container-wrapper'>
       <main className='login main'>
         <div className='login__form-column'>
-          <form className='login__form login-form' action="">
+          <form className='login-form' action="">
             <h1 className='login-form__title'>Регистрация</h1>
             <p className='login-form__subtitle'>Заполни поля ниже, чтобы создать аккаунт RsLang</p>
             <label className='login-form__label login-form__label_is_margin-top' htmlFor="name" >Имя</label>
