@@ -1,0 +1,141 @@
+$headers-font: 'Neue Machina', sans-serif;
+
+.login {
+  box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.3);
+  background-color: #fdf5ea;
+  display: flex;
+
+  &__form-column {
+    flex: 0 1 50%;
+    background-color: #ffffff;
+    border-radius: 0px 40px 40px 0px;
+    padding: 30px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__form {
+
+  }
+
+  &__picture {
+    flex: 0 1 50%;
+    background-image: url('./assets/svg/login/welcome.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+}
+
+.login-form {
+  color: #151515;
+
+  &__title {
+    font-family: $headers-font;
+    font-weight: bold;
+    font-size: 37px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  &__subtitle {
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 30px;
+    color: #414141;
+  }
+
+  &__label {
+    display: block;
+    margin: 20px 0 10px 0;
+    font-size: 16px;
+    line-height: 1;
+
+    &_is_margin-top {
+      margin-top: 40px;
+    }
+  }
+
+  &__input {
+    display: block;
+    background: #fff6f4;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    width: 460px;
+    padding: 10px 15px;
+    font-size: 18px;
+    line-height: 1;
+    outline: none;
+    font-family: inherit;
+    color: #666666;
+    transition: 0.3s;
+
+    &:focus {
+      border-color: #ed7051;
+      background-color: #ffffff;
+    }
+
+    &_is_password {
+      padding-right: 35px;
+    }
+  }
+
+  &__pswd-block {
+    position: relative;
+
+    &_is_pswd-shown {
+      .login-form__pswd-block-btn {
+        background-image: url('./assets/svg/login/eye-opened.svg');
+      }
+    }
+
+    &-btn {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      right: 7px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-image: url('./assets/svg/login/eye-closed.svg');
+      background-repeat: no-repeat;
+      background-size: 20px auto;
+      background-position: center;
+    }
+  }
+
+  &__error {
+    visibility: hidden;
+    margin: 16px 0;
+    font-size: 16px;
+    color: #4902fd;
+
+    &_is_visible {
+      visibility: visible;
+    }
+  }
+
+  &__btn {
+    margin-top: 20px;
+  }
+
+  &__question {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1;
+    color: rgba(141, 141, 141, 0.8);
+  }
+
+  &__link {
+    text-decoration: none;
+    color: #ed7051;
+    transition: 0.3s;
+
+    &:hover {
+      color: #e85935;
+    }
+  }
+}
