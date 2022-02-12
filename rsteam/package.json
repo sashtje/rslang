@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@amcharts/amcharts5": "^5.1.4",
     "@testing-library/react": "12.1.2",
     "@testing-library/react-hooks": "7.0.2",
     "core-js": "^3.6.5",
