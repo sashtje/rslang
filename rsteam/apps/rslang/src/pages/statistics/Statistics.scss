@@ -7,6 +7,7 @@ $headers-font: 'Neue Machina', sans-serif;
   background-repeat: no-repeat;
   background-position: calc(100% - 20px) 80px;
   background-attachment: fixed;
+  padding-top: 5px;
 
 
   &__container {
@@ -41,6 +42,10 @@ $headers-font: 'Neue Machina', sans-serif;
     letter-spacing: -0.01em;
     color: #151515;
     text-align: center;
+
+    @media screen and (max-width: 600px) {
+      font-size: 24px;
+    }
   }
 
   &__words {
@@ -48,6 +53,7 @@ $headers-font: 'Neue Machina', sans-serif;
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
   }
 
   &__games {
@@ -55,11 +61,12 @@ $headers-font: 'Neue Machina', sans-serif;
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
   }
 }
 
 .stat-today-mark {
-  flex: 0 0 300px;
+  flex: 0 1 300px;
   padding: 50px 0;
   box-shadow: 0px 8px 30px rgba(182, 185, 191, 0.3);
   border-radius: 8px;
@@ -79,6 +86,10 @@ $headers-font: 'Neue Machina', sans-serif;
     letter-spacing: -0.01em;
     color: #151515;
     text-align: center;
+
+    @media screen and (max-width: 600px) {
+      font-size: 24px;
+    }
   }
 
   &__desc {
@@ -88,7 +99,7 @@ $headers-font: 'Neue Machina', sans-serif;
 }
 
 .stat-today-game {
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   padding: 50px 20px;
   box-shadow: 0px 8px 30px rgba(182, 185, 191, 0.3);
   border-radius: 8px;
@@ -106,12 +117,20 @@ $headers-font: 'Neue Machina', sans-serif;
     line-height: 1;
     color: #151515;
     text-align: center;
+
+    @media screen and (max-width: 600px) {
+      font-size: 22px;
+    }
   }
 
   &__result {
     margin-top: 40px;
     width: 100%;
     border-collapse: collapse;
+
+    @media screen and (max-width: 600px) {
+      margin-top: 30px;
+    }
   }
 
   &__row {
@@ -121,6 +140,11 @@ $headers-font: 'Neue Machina', sans-serif;
     padding: 5px 0;
     width: 85%;
     line-height: 1.4;
+
+    @media screen and (max-width: 600px) {
+      line-height: 1.2;
+      padding: 10px 0;
+    }
   }
 
   &__number {
@@ -143,6 +167,10 @@ $headers-font: 'Neue Machina', sans-serif;
     letter-spacing: -0.01em;
     color: #151515;
     text-align: center;
+
+    @media screen and (max-width: 600px) {
+      font-size: 24px;
+    }
   }
 
   &__new-words {
@@ -150,16 +178,28 @@ $headers-font: 'Neue Machina', sans-serif;
   }
 
   &__subtitle {
+    font-family: $headers-font;
+    font-weight: bold;
+    letter-spacing: -0.01em;
     text-align: center;
-    color: #ed7051;
+    color: #151515;
     font-size: 22px;
     line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+
+    @media screen and (max-width: 600px) {
+      font-size: 20px;
+    }
   }
 
   &__chart {
     margin-top: 30px;
     width: 100%;
     height: 500px;
+
+    @media screen and (max-height: 500px) {
+      height: 100vh;
+    }
   }
 
   &__learned-words {
