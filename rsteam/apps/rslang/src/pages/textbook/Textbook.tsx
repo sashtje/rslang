@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from '../../components/UI/footer/Footer';
-import { Link } from 'react-router-dom';
+import Groups from '../../components/UI/groups/Groups';
 
 const Textbook = () => {
   return (
@@ -20,15 +20,7 @@ const Textbook = () => {
             <div className='textbook__picture-block'></div>
           </div>
 
-          <div className='textbook__groups'>
-            <Link className='textbook__group-link textbook__group-link_is_a1' to='/textbook/a1/1'>A1</Link>
-            <Link className='textbook__group-link textbook__group-link_is_a2' to='/textbook/a2/1'>A2</Link>
-            <Link className='textbook__group-link textbook__group-link_is_b1' to='/textbook/b1/1'>B1</Link>
-            <Link className='textbook__group-link textbook__group-link_is_b2' to='/textbook/b2/1'>B2</Link>
-            <Link className='textbook__group-link textbook__group-link_is_c1' to='/textbook/c1/1'>C1</Link>
-            <Link className='textbook__group-link textbook__group-link_is_c2' to='/textbook/c2/1'>C2</Link>
-            <Link className='textbook__group-link textbook__group-link_is_hard' to='/textbook/hard/1'>&#9733;</Link>
-          </div>
+          <Groups />
         </div>
       </main>
       <Footer />

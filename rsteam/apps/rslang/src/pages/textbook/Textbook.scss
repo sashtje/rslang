@@ -97,6 +97,10 @@ $headers-font: 'Neue Machina', sans-serif;
     cursor: pointer;
     transition: 0.3s;
 
+    &_is_active {
+      border: 1px solid #ed7051;
+    }
+
     &_is_a1 {
       color: #ff1f1f;
 
