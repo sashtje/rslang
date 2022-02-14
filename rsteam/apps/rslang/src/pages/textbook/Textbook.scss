@@ -1,0 +1,157 @@
+$headers-font: 'Neue Machina', sans-serif;
+
+.textbook {
+  box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.3);
+
+  &__container {
+    padding-top: 30px;
+    padding-bottom: 50px;
+  }
+
+  &__row {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    @media screen and (max-width: 700px) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &__content-block {
+    flex: 0 1 auto;
+  }
+
+  &__picture-block {
+    flex: 0 0 300px;
+    border-radius: 0 20px 0 0;
+    height: 300px;
+
+    background-image: url('./assets/svg/textbook/woman.svg');
+    background-size: contain;
+    background-position: top right;
+    background-repeat: no-repeat;
+    box-shadow: inset -5px 5px 10px rgba(255, 255, 255, 0.5);
+  }
+
+  &__title {
+    font-family: $headers-font;
+    font-weight: bold;
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: #151515;
+    text-align: center;
+    margin-bottom: 30px;
+
+    @media screen and (max-width: 700px) {
+      font-size: 30px;
+    }
+  }
+
+  &__desc {
+    font-size: 20px;
+    line-height: 1.4;
+
+    @media screen and (max-width: 700px) {
+      font-size: 16px;
+    }
+
+    & + .textbook__desc {
+      margin-top: 30px;
+    }
+
+    &::first-letter {
+      color: #ed7051;
+      font-family: $headers-font;
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 1;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  &__groups {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  &__group-link {
+    font-weight: bold;
+    text-decoration: none;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    box-shadow: 0px 8px 15px rgba(182, 185, 191, 0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &_is_a1 {
+      color: #ff1f1f;
+
+      &:hover {
+        box-shadow: 0px 8px 15px rgba(255, 31, 31, 0.5);
+      }
+    }
+
+    &_is_a2 {
+      color: #cb6805;
+
+      &:hover {
+        box-shadow: 0px 8px 15px rgba(203,104,5, 0.5);
+      }
+    }
+
+    &_is_b1 {
+      color: #56cd08;
+
+      &:hover {
+        box-shadow: 0px 8px 15px rgba(86,205,8, 0.5);
+      }
+    }
+
+    &_is_b2 {
+      color: #0ab5e5;
+
+      &:hover {
+        box-shadow: 0px 8px 15px rgba(10,181,229, 0.5);
+      }
+    }
+
+    &_is_c1 {
+      color: #043bf8;
+
+      &:hover {
+        box-shadow: 0px 8px 15px rgba(4,59,248, 0.5);
+      }
+    }
+
+    &_is_c2 {
+      color: #ff0ed9;
+
+      &:hover {
+        box-shadow: 4px 8px 15px rgba(255,14,217, 0.5);
+      }
+    }
+
+    &_is_hard {
+      font-size: 26px;
+      color: #d2d300;
+
+      &:hover {
+        box-shadow: 0px 8px 15px rgba(210,211,0, 0.5);
+      }
+    }
+  }
+}
