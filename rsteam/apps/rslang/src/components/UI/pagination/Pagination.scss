@@ -1,6 +1,124 @@
 .pagination {
   margin-top: 30px;
 
+  &_is_a1 {
+    .pagination__link_is_active,
+    .pagination__link:hover {
+      border-color: #ff1f1f;
+      color: #ff1f1f;
+    }
+
+    .pagination__link:hover {
+      svg {
+        fill: #ff1f1f;
+      }
+    }
+
+    .pagination__link_is_learned {
+      background-color: rgba(255, 31, 31, 0.1);
+      border-color: rgba(255, 31, 31, 0.1);
+    }
+  }
+
+  &_is_a2 {
+    .pagination__link_is_active,
+    .pagination__link:hover {
+      border-color: #cb6805;
+      color: #cb6805;
+    }
+
+    .pagination__link:hover {
+      svg {
+        fill: #cb6805;
+      }
+    }
+
+    .pagination__link_is_learned {
+      background-color: rgba(203, 104, 5, 0.1);
+      border-color: rgba(203, 104, 5, 0.1);
+    }
+  }
+
+  &_is_b1 {
+    .pagination__link_is_active,
+    .pagination__link:hover {
+      border-color: #56cd08;
+      color: #56cd08;
+    }
+
+    .pagination__link:hover {
+      svg {
+        fill: #56cd08;
+      }
+    }
+
+    .pagination__link_is_learned {
+      background-color: rgba(86, 205, 8, 0.1);
+      border-color: rgba(86, 205, 8, 0.1);
+    }
+  }
+
+  &_is_b2 {
+    .pagination__link_is_active,
+    .pagination__link:hover {
+      border-color: #0ab5e5;
+      color: #0ab5e5;
+    }
+
+    .pagination__link:hover {
+      svg {
+        fill: #0ab5e5;
+      }
+    }
+
+    .pagination__link_is_learned {
+      background-color: rgba(10, 181, 229, 0.1);
+      border-color: rgba(10, 181, 229, 0.1);
+    }
+  }
+
+  &_is_c1 {
+    .pagination__link_is_active,
+    .pagination__link:hover {
+      border-color: #043bf8;
+      color: #043bf8;
+    }
+
+    .pagination__link:hover {
+      svg {
+        fill: #043bf8;
+      }
+    }
+
+    .pagination__link_is_learned {
+      background-color: rgba(4, 59, 248, 0.1);
+      border-color: rgba(4, 59, 248, 0.1);
+    }
+  }
+
+  &_is_c2 {
+    .pagination__link_is_active,
+    .pagination__link:hover {
+      border-color: #ff0ed9;
+      color: #ff0ed9;
+    }
+
+    .pagination__link:hover {
+      svg {
+        fill: #ff0ed9;
+      }
+    }
+
+    .pagination__link_is_learned {
+      background-color: rgba(255, 14, 217, 0.1);
+      border-color: rgba(255, 14, 217, 0.1);
+    }
+  }
+
+  &_is_hard {
+    display: none;
+  }
+
   &__container {
     max-width: 900px;
     margin: 0 auto;
@@ -16,21 +134,24 @@
     height: 40px;
     box-shadow: 0px 8px 15px rgba(182, 185, 191, 0.5);
     border-radius: 8px;
+    border: 1px solid transparent;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
-  }
+    color: #000000;
+    transition: 0.3s;
 
-  &__left-arrow {
-    img {
-      display: block;
-      width: 18px;
+    &_is_disabled {
+      pointer-events: none;
+      cursor: default;
+      color: #aaaaaa;
     }
   }
 
+  &__left-arrow,
   &__right-arrow {
-    img {
+    svg {
       display: block;
       width: 18px;
     }

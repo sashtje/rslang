@@ -27,19 +27,43 @@ const Pagination = () => {
     setPageNumber(number);
   };
 
+  const getClass = () => {
+    if (basePath.includes('a1')) {
+      return 'a1';
+    }
+    if (basePath.includes('a2')) {
+      return 'a2';
+    }
+    if (basePath.includes('b1')) {
+      return 'b1';
+    }
+    if (basePath.includes('b2')) {
+      return 'b2';
+    }
+    if (basePath.includes('c1')) {
+      return 'c1';
+    }
+    if (basePath.includes('c2')) {
+      return 'c2';
+    }
+    return 'hard';
+  };
+
   return (
-    <div className='pagination'>
+    <div className={`pagination pagination_is_${getClass()}`}>
       {
         (pageNumber < 5) 
         ? <div className='pagination__container'>
             <Link
-              className='pagination__link pagination__left-arrow'
+              className='pagination__link pagination__left-arrow pagination__link_is_disabled'
               to={getPrevPagePath()}
               onClick={() => {onChangePage(pageNumber - 1)}}>
-                <img src="./assets/svg/textbook/left-arrow.svg" alt="prev page" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                </svg>
             </Link>
             <Link
-              className='pagination__link'
+              className='pagination__link pagination__link_is_learned'
               to={basePath + 1}
               onClick={() => {onChangePage(1)}}
             >1</Link>
@@ -74,7 +98,9 @@ const Pagination = () => {
               to={getNextPagePath()}
               onClick={() => {onChangePage(pageNumber + 1)}}
             >
-              <img src="./assets/svg/textbook/right-arrow.svg" alt="next page" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+              </svg>
             </Link>
           </div>
         : (pageNumber > 4 && pageNumber < 27)
@@ -84,7 +110,9 @@ const Pagination = () => {
               to={getPrevPagePath()}
               onClick={() => {onChangePage(pageNumber - 1)}}
             >
-              <img src="./assets/svg/textbook/left-arrow.svg" alt="prev page" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+              </svg>
             </Link>
             <Link
               className='pagination__link'
@@ -98,7 +126,7 @@ const Pagination = () => {
               onClick={() => {onChangePage(pageNumber - 1)}}
             >{pageNumber - 1}</Link>
             <Link
-              className='pagination__link'
+              className='pagination__link pagination__link_is_active'
               to={basePath + pageNumber}
               onClick={() => {onChangePage(pageNumber)}}
             >{pageNumber}</Link>
@@ -118,7 +146,9 @@ const Pagination = () => {
               to={getNextPagePath()}
               onClick={() => {onChangePage(pageNumber + 1)}}
             >
-              <img src="./assets/svg/textbook/right-arrow.svg" alt="next page" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+              </svg>
             </Link>
           </div>
         : <div className='pagination__container'>
@@ -127,7 +157,9 @@ const Pagination = () => {
               to={getPrevPagePath()}
               onClick={() => {onChangePage(pageNumber - 1)}}
             >
-              <img src="./assets/svg/textbook/left-arrow.svg" alt="prev page" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+              </svg>
             </Link>
             <Link
               className='pagination__link'
@@ -165,7 +197,9 @@ const Pagination = () => {
               to={getNextPagePath()}
               onClick={() => {onChangePage(pageNumber + 1)}}
             >
-              <img src="./assets/svg/textbook/right-arrow.svg" alt="next page" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+              </svg>
             </Link>
           </div>
         }
