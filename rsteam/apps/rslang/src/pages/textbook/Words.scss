@@ -1,0 +1,391 @@
+$headers-font: 'Neue Machina', sans-serif;
+
+.words {
+  box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.3);
+
+  &_is_a1 {
+    &.words_is_learned {
+      background-color: rgba(255, 31, 31, 0.1);
+
+      .words__container {
+        border: 3px solid rgba(255, 31, 31, 0.5);
+        border-top: none;
+        border-bottom: none;
+        background-color: #ffffff;
+      }
+    }
+
+    .word-card_is_learned {
+      background-color: rgba(255, 31, 31, 0.1);
+      border-color: rgba(255, 31, 31, 0.1);
+    }
+
+    .word-card__btn-hard:hover,
+    .word-card__btn-learned:hover {
+      box-shadow: 0px 8px 15px rgba(255, 31, 31, 0.5);
+    }
+
+    .word-card__btn-hard:active,
+    .word-card__btn-learned:active {
+      box-shadow: inset 0px 8px 15px rgba(255, 31, 31, 0.5);
+    }
+
+    .word-card__title {
+      color: #ff1f1f;
+    }
+  }
+
+  &_is_a2 {
+    &.words_is_learned {
+      background-color: rgba(203, 104, 5, 0.1);
+
+      .words__container {
+        border: 3px solid rgba(203, 104, 5, 0.5);
+        border-top: none;
+        border-bottom: none;
+        background-color: #ffffff;
+      }
+    }
+
+    .word-card_is_learned {
+      background-color: rgba(203, 104, 5, 0.1);
+      border-color: rgba(203, 104, 5, 0.1);
+    }
+
+    .word-card__btn-hard:hover,
+    .word-card__btn-learned:hover {
+      box-shadow: 0px 8px 15px rgba(203, 104, 5, 0.5);
+    }
+
+    .word-card__btn-hard:active,
+    .word-card__btn-learned:active {
+      box-shadow: inset 0px 8px 15px rgba(203, 104, 5, 0.5);
+    }
+
+    .word-card__title {
+      color: #cb6805;
+    }
+  }
+
+  &_is_b1 {
+    &.words_is_learned {
+      background-color: rgba(86, 205, 8, 0.1);
+
+      .words__container {
+        border: 3px solid rgba(86, 205, 8, 0.5);
+        border-top: none;
+        border-bottom: none;
+        background-color: #ffffff;
+      }
+    }
+
+    .word-card_is_learned {
+      background-color: rgba(86, 205, 8, 0.1);
+      border-color: rgba(86, 205, 8, 0.1);
+    }
+
+    .word-card__btn-hard:hover,
+    .word-card__btn-learned:hover {
+      box-shadow: 0px 8px 15px rgba(86, 205, 8, 0.5);
+    }
+
+    .word-card__btn-hard:active,
+    .word-card__btn-learned:active {
+      box-shadow: inset 0px 8px 15px rgba(86, 205, 8, 0.5);
+    }
+
+    .word-card__title {
+      color: #56cd08;
+    }
+  }
+
+  &_is_b2 {
+    &.words_is_learned {
+      background-color: rgba(10, 181, 229, 0.1);
+
+      .words__container {
+        border: 3px solid rgba(10, 181, 229, 0.5);
+        border-top: none;
+        border-bottom: none;
+        background-color: #ffffff;
+      }
+    }
+
+    .word-card_is_learned {
+      background-color: rgba(10, 181, 229, 0.1);
+      border-color: rgba(10, 181, 229, 0.1);
+    }
+
+    .word-card__btn-hard:hover,
+    .word-card__btn-learned:hover {
+      box-shadow: 0px 8px 15px rgba(10, 181, 229, 0.5);
+    }
+
+    .word-card__btn-hard:active,
+    .word-card__btn-learned:active {
+      box-shadow: inset 0px 8px 15px rgba(10, 181, 229, 0.5);
+    }
+
+    .word-card__title {
+      color: #0ab5e5;
+    }
+  }
+
+  &_is_c1 {
+    &.words_is_learned {
+      background-color: rgba(4, 59, 248, 0.1);
+
+      .words__container {
+        border: 3px solid rgba(4, 59, 248, 0.5);
+        border-top: none;
+        border-bottom: none;
+        background-color: #ffffff;
+      }
+    }
+
+    .word-card_is_learned {
+      background-color: rgba(4, 59, 248, 0.1);
+      border-color: rgba(4, 59, 248, 0.1);
+    }
+
+    .word-card__btn-hard:hover,
+    .word-card__btn-learned:hover {
+      box-shadow: 0px 8px 15px rgba(4, 59, 248, 0.5);
+    }
+
+    .word-card__btn-hard:active,
+    .word-card__btn-learned:active {
+      box-shadow: inset 0px 8px 15px rgba(4, 59, 248, 0.5);
+    }
+
+    .word-card__title {
+      color: #043bf8;
+    }
+  }
+
+  &_is_c2 {
+    &.words_is_learned {
+      background-color: rgba(255, 14, 217, 0.1);
+
+      .words__container {
+        border: 3px solid rgba(255, 14, 217, 0.5);
+        border-top: none;
+        border-bottom: none;
+        background-color: #ffffff;
+      }
+    }
+
+    .word-card_is_learned {
+      background-color: rgba(255, 14, 217, 0.1);
+      border-color: rgba(255, 14, 217, 0.1);
+    }
+
+    .word-card__btn-hard:hover,
+    .word-card__btn-learned:hover {
+      box-shadow: 0px 8px 15px rgba(255, 14, 217, 0.5);
+    }
+
+    .word-card__btn-hard:active,
+    .word-card__btn-learned:active {
+      box-shadow: inset 0px 8px 15px rgba(255, 14, 217, 0.5);
+    }
+
+    .word-card__title {
+      color: #ff0ed9;
+    }
+  }
+
+  &_is_hard {
+    .word-card__btn-hard:hover,
+    .word-card__btn-learned:hover {
+      box-shadow: 0px 8px 15px rgba(210, 211, 0, 0.5);
+    }
+
+    .word-card__btn-hard:active,
+    .word-card__btn-learned:active {
+      box-shadow: inset 0px 8px 15px rgba(210, 211, 0, 0.5);
+    }
+  }
+
+  &__container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  &__games {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  &__game-link {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #be2b06;
+    padding: 15px 20px 15px 55px;
+    box-shadow: 0px 8px 15px rgba(182, 185, 191, 0.5);
+    border-radius: 8px;
+    background-size: 32px auto;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      box-shadow: 0px 8px 15px rgba(246, 59, 2, 0.5);
+    }
+
+    &:active {
+      box-shadow: inset 0px 8px 15px rgba(246, 59, 2, 0.5);
+    }
+
+    &_is_audiocall {
+      background-image: url('./assets/img/textbook/earmuffs.png');
+    }
+
+    &_is_savannah {
+      background-image: url('./assets/img/textbook/lion.png');
+    }
+
+    &_is_disabled {
+      pointer-events: none;
+      cursor: default;
+      color: #888;
+
+      &.words__game-link_is_audiocall {
+        background-image: url('./assets/img/textbook/earmuffs-gray.png');
+      }
+
+      &.words__game-link_is_savannah {
+        background-image: url('./assets/img/textbook/lion-gray.png');
+      }
+    }
+  }
+
+  &__words-block {
+    max-width: 910px;
+    margin: 60px auto;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &__word {
+    & + .words__word {
+      margin-top: 30px;
+    }
+  }
+}
+
+.word-card {
+  box-shadow: 0px 8px 15px rgba(182, 185, 191, 0.5);
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid transparent;
+  display: flex;
+  gap: 20px;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
+
+  &__picture {
+    flex: 0 0 30%;
+    background-image: url('./assets/img/textbook/test.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+
+    @media screen and (max-width: 600px) {
+      flex: 0 0 auto;
+      width: 100%;
+      padding-bottom: 66.7%;
+    }
+  }
+
+  &__desc {
+    flex: 1 1 auto;
+  }
+
+  &__title-block {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__title {
+    font-size: 22px;
+    line-height: 1;
+    font-weight: bold;
+  }
+
+  &__transcript {
+    margin-right: auto;
+  }
+
+  &__btn-sound {
+    background-color: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    svg {
+      width: 25px;
+    }
+  }
+
+  &__title-translate {
+    color: #999999;
+    margin-top: 5px;
+  }
+
+  &__def {
+    margin-top: 40px;
+  }
+
+  &__def-translate {
+    margin-top: 5px;
+    color: #999999;
+  }
+
+  &__example {
+    margin-top: 40px;
+  }
+
+  &__example-translate {
+    margin-top: 5px;
+    color: #999999;
+  }
+
+  &__controls {
+    margin-top: 40px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  &__btn-hard,
+  &__btn-learned {
+    background-color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0px 8px 15px rgba(182, 185, 191, 0.5);
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  &_is_hard {
+    background-color: rgba(210, 211, 0, 0.1);
+    border-color: rgba(210, 211, 0, 0.2);
+  }
+}
