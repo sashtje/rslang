@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Footer from '../../components/UI/footer/Footer';
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import am5themes_Material from "@amcharts/amcharts5/themes/Material";
+import { AuthContext } from '../../context/index';
 
 const Statistics = () => {
+  const {isAuth, setIsAuth} = useContext(AuthContext);
+
   const createChart = (id) => {
     let root = am5.Root.new(id);
 
@@ -123,91 +126,98 @@ const Statistics = () => {
   };
 
   useEffect(() => {
-    createChart("chart-new-words");
-    createChart("chart-learned-words");
+    if (isAuth) {
+      createChart("chart-new-words");
+      createChart("chart-learned-words");
+    }
   }, []);
 
   return (
     <div className='container-wrapper'>
       <main className='statistics main'>
-        <div className='container-inner statistics__container'>
-          {/* <div className='statistics__message'>Статистика доступна только для авторизованных пользователей</div> */}
-          <section className='statistics__today stat-today'>
-            <h2 className='stat-today__title'>Статистика за сегодня</h2>
-            <div className='stat-today__words'>
-              <div className='stat-today-mark'>
-                <div className='stat-today-mark__number'>0</div>
-                <div className='stat-today-mark__desc'>новых слов</div>
+        {
+          isAuth
+          ? <div className='container-inner statistics__container'>
+            <section className='statistics__today stat-today'>
+              <h2 className='stat-today__title'>Статистика за сегодня</h2>
+              <div className='stat-today__words'>
+                <div className='stat-today-mark'>
+                  <div className='stat-today-mark__number'>0</div>
+                  <div className='stat-today-mark__desc'>новых слов</div>
+                </div>
+
+                <div className='stat-today-mark'>
+                  <div className='stat-today-mark__number'>0</div>
+                  <div className='stat-today-mark__desc'>изученных слов</div>
+                </div>
+
+                <div className='stat-today-mark'>
+                  <div className='stat-today-mark__number'>0</div>
+                  <div className='stat-today-mark__desc'>% правильных ответов</div>
+                </div>
               </div>
 
-              <div className='stat-today-mark'>
-                <div className='stat-today-mark__number'>0</div>
-                <div className='stat-today-mark__desc'>изученных слов</div>
+              <div className='stat-today__games'>
+                <div className='stat-today-game'>
+                  <h3 className='stat-today-game__name'>Саванна</h3>
+                  <table className='stat-today-game__result'>
+                    <tbody>
+                      <tr className='stat-today-game__row'>
+                        <td className='stat-today-game__title'>Количество новых слов:</td>
+                        <td className='stat-today-game__number'>0</td>
+                      </tr>
+                      <tr className='stat-today-game__row'>
+                        <td className='stat-today-game__title'>Процент правильных слов:</td>
+                        <td className='stat-today-game__number'>0</td>
+                      </tr>
+                      <tr className='stat-today-game__row'>
+                        <td className='stat-today-game__title'>Самая длительная серия правильных ответов:</td>
+                        <td className='stat-today-game__number'>0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className='stat-today-game'>
+                  <h3 className='stat-today-game__name'>Аудиовызов</h3>
+                  <table className='stat-today-game__result'>
+                    <tbody>
+                      <tr className='stat-today-game__row'>
+                        <td className='stat-today-game__title'>Количество новых слов:</td>
+                        <td className='stat-today-game__number'>0</td>
+                      </tr>
+                      <tr className='stat-today-game__row'>
+                        <td className='stat-today-game__title'>Процент правильных слов:</td>
+                        <td className='stat-today-game__number'>0</td>
+                      </tr>
+                      <tr className='stat-today-game__row'>
+                        <td className='stat-today-game__title'>Самая длительная серия правильных ответов:</td>
+                        <td className='stat-today-game__number'>0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-
-              <div className='stat-today-mark'>
-                <div className='stat-today-mark__number'>0</div>
-                <div className='stat-today-mark__desc'>% правильных ответов</div>
-              </div>
-            </div>
-
-            <div className='stat-today__games'>
-              <div className='stat-today-game'>
-                <h3 className='stat-today-game__name'>Саванна</h3>
-                <table className='stat-today-game__result'>
-                  <tbody>
-                    <tr className='stat-today-game__row'>
-                      <td className='stat-today-game__title'>Количество новых слов:</td>
-                      <td className='stat-today-game__number'>0</td>
-                    </tr>
-                    <tr className='stat-today-game__row'>
-                      <td className='stat-today-game__title'>Процент правильных слов:</td>
-                      <td className='stat-today-game__number'>0</td>
-                    </tr>
-                    <tr className='stat-today-game__row'>
-                      <td className='stat-today-game__title'>Самая длительная серия правильных ответов:</td>
-                      <td className='stat-today-game__number'>0</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div className='stat-today-game'>
-                <h3 className='stat-today-game__name'>Аудиовызов</h3>
-                <table className='stat-today-game__result'>
-                  <tbody>
-                    <tr className='stat-today-game__row'>
-                      <td className='stat-today-game__title'>Количество новых слов:</td>
-                      <td className='stat-today-game__number'>0</td>
-                    </tr>
-                    <tr className='stat-today-game__row'>
-                      <td className='stat-today-game__title'>Процент правильных слов:</td>
-                      <td className='stat-today-game__number'>0</td>
-                    </tr>
-                    <tr className='stat-today-game__row'>
-                      <td className='stat-today-game__title'>Самая длительная серия правильных ответов:</td>
-                      <td className='stat-today-game__number'>0</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </section>
-
-          <section className='statistics__all stat-all'>
-            <h2 className='stat-all__title'>Статистика за всё время</h2>
-
-            <section className='stat-all__new-words'>
-              <h3 className='stat-all__subtitle'>Количество новых слов за каждый день</h3>
-              <div className='stat-all__chart' id='chart-new-words'></div>
             </section>
 
-            <section className='stat-all__learned-words'>
-              <h3 className='stat-all__subtitle'>Увеличение количества изученных слов за весь период обучения</h3>
-              <div className='stat-all__chart' id='chart-learned-words'></div>
+            <section className='statistics__all stat-all'>
+              <h2 className='stat-all__title'>Статистика за всё время</h2>
+
+              <section className='stat-all__new-words'>
+                <h3 className='stat-all__subtitle'>Количество новых слов за каждый день</h3>
+                <div className='stat-all__chart' id='chart-new-words'></div>
+              </section>
+
+              <section className='stat-all__learned-words'>
+                <h3 className='stat-all__subtitle'>Увеличение количества изученных слов за весь период обучения</h3>
+                <div className='stat-all__chart' id='chart-learned-words'></div>
+              </section>
             </section>
-          </section>
-        </div>
+          </div>
+          : <div className='container-inner statistics__container statistics__container_is_disabled'>
+              <div className='statistics__message'>Статистика доступна только для авторизованных пользователей</div>
+            </div>
+        }
       </main>
       <Footer />
     </div>

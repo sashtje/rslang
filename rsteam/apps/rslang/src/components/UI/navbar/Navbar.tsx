@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import {Link} from 'react-router-dom';
 import Burger from '../burger/Burger';
-import { AuthContext } from '../../../context';
+import { AuthContext } from '../../../context/index';
 
 const Navbar = () => {
   const {isAuth, setIsAuth} = useContext(AuthContext);
