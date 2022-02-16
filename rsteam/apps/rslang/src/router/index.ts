@@ -1,7 +1,7 @@
 import Home from '../pages/home/Home';
 import Ourteam from '../pages/our-team/Ourteam';
 import Textbook from '../pages/textbook/Textbook';
-import Savannah from '../pages/Savannah';
+import Sprint from '../pages/sprint/sprint';
 import Audiocall from '../pages/Audiocall';
 import Statistics from '../pages/statistics/Statistics';
 import Login from '../pages/login/Login';
@@ -19,7 +19,7 @@ export const routes = [
   {path: "/textbook/c1/:id", element: Words},
   {path: "/textbook/c2/:id", element: Words},
   {path: "/textbook/hard", element: Words},
-  {path: "/savannah", element: Savannah},
+  {path: "/sprint", element: Sprint},
   {path: "/audiocall", element: Audiocall},
   {path: "/statistics", element: Statistics},
   {path: "/login", element: Login},
