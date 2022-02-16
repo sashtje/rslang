@@ -135,14 +135,13 @@ $headers-font: 'Neue Machina', sans-serif;
   }
 
   &__error {
-    visibility: hidden;
     margin: 16px 0;
     font-size: 16px;
     color: #4902fd;
+  }
 
-    &_is_visible {
-      visibility: visible;
-    }
+  &__loader {
+    margin: 16px 0;
   }
 
   &__btn {
@@ -150,6 +149,12 @@ $headers-font: 'Neue Machina', sans-serif;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+
+    &_is_disabled {
+      pointer-events: none;
+      cursor: default;
+      background-color: #aaaaaa;
+    }
   }
 
   &__question {

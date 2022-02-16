@@ -12,7 +12,7 @@ const Words = () => {
           <div className='words__container'>
             <div className='words__games'>
               <Link className='words__game-link words__game-link_is_audiocall words__game-link_is_disabled' to='/audiocall'>Аудиовызов</Link>
-              <Link className='words__game-link words__game-link_is_savannah' to='/savannah'>Саванна</Link>
+              <Link className='words__game-link words__game-link_is_savannah' to='/sprint'>Спринт</Link>
             </div>
             <Groups />
 
