@@ -11,9 +11,8 @@ import { Link } from 'react-router-dom';
 //   {value: 6}
 // ];
 
-const Sprint = ({ gameToStart = false, lvlSelected = 1 }) => {
+const Sprint = ({ lvlSelected = 1 }) => {
   const [selectedOption, setSelectedOption] = useState(lvlSelected);
-  const [gameStatus, setgameStatus] = useState(gameToStart);
 
   const setOption = (e) => {
     setSelectedOption(+e.target.value);
@@ -23,43 +22,32 @@ const Sprint = ({ gameToStart = false, lvlSelected = 1 }) => {
     console.log(selectedOption);
   });
 
-  if (!gameStatus) {
-    return (
-      <div className="sprint__wrapper">
-        <div className="sprint__choosePage">
-          <h1 className="textbook__title">Спринт</h1>
-          <p className="sprint__content">
-            Спринт - это тренировка на скорость. Попробуй угадать как можно больше слов за 30
-            секунд.
-          </p>
-          <div className="sprint__chooseLvl">
-            <label className="sprint-select-label" htmlFor="sprint-select">
-              Сложность
-            </label>
-            <select className="sprint-select" id="sprint-select" onChange={setOption}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-            </select>
-            <Link to={`/sprint-game/${selectedOption}`}className='btn'>
-              Начать игру
-            </Link>
-            
-          </div>
+  return (
+    <div className="sprint__wrapper">
+      <div className="sprint__choosePage">
+        <h1 className="textbook__title">Спринт</h1>
+        <p className="sprint__content">
+          Спринт - это тренировка на скорость. Попробуй угадать как можно больше слов за 30 секунд.
+        </p>
+        <div className="sprint__chooseLvl">
+          <label className="sprint-select-label" htmlFor="sprint-select">
+            Сложность
+          </label>
+          <select className="sprint-select" id="sprint-select" onChange={setOption}>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+          <Link to={`/sprint-game/${selectedOption}`} className="btn">
+            Начать игру
+          </Link>
         </div>
       </div>
-    );
-  }
-  else {
-    return (
-      <div className="sprint__wrapper">
-        <SprintGame></SprintGame>
-      </div>
-    )
-  }
+    </div>
+  );
 };
 
 export default Sprint;
