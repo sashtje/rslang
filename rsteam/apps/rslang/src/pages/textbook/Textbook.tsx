@@ -20,7 +20,7 @@ const Textbook = () => {
             <div className='textbook__picture-block'></div>
           </div>
 
-          <Groups />
+          <Groups setPage={(page) => {}} setGroup={(group) => {}}/>
         </div>
       </main>
       <Footer />

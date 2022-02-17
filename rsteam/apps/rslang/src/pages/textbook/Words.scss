@@ -23,6 +23,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(255, 31, 31, 0.5);
+      color: #ff1f1f;
     }
 
     .word-card__btn-hard:active,
@@ -55,6 +56,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(203, 104, 5, 0.5);
+      color: #cb6805;
     }
 
     .word-card__btn-hard:active,
@@ -87,6 +89,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(86, 205, 8, 0.5);
+      color: #56cd08;
     }
 
     .word-card__btn-hard:active,
@@ -119,6 +122,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(10, 181, 229, 0.5);
+      color: #0ab5e5;
     }
 
     .word-card__btn-hard:active,
@@ -151,6 +155,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(4, 59, 248, 0.5);
+      color: #043bf8;
     }
 
     .word-card__btn-hard:active,
@@ -183,6 +188,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(255, 14, 217, 0.5);
+      color: #ff0ed9;
     }
 
     .word-card__btn-hard:active,
@@ -199,6 +205,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(210, 211, 0, 0.5);
+      color: #d2d300;
     }
 
     .word-card__btn-hard:active,
@@ -375,6 +382,7 @@ $headers-font: 'Neue Machina', sans-serif;
 
   &__btn-hard,
   &__btn-learned {
+    font-family: inherit;
     background-color: #ffffff;
     border: none;
     padding: 10px 15px;

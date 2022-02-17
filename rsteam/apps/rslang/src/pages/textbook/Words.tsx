@@ -1,20 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Footer from '../../components/UI/footer/Footer';
 import Groups from '../../components/UI/groups/Groups';
 import { Link } from 'react-router-dom';
 import Pagination from '../../components/UI/pagination/Pagination';
 
 const Words = () => {
+  const [group, setGroup] = useState(null);
+  const [page, setPage] = useState(null);
+
+  useEffect(() => {
+    const path = window.location.pathname;
+
+    if (path.includes('hard')) {
+      setGroup('hard');
+      setPage(null);
+    } else {
+      const page = +path.split('/').slice(-1)[0];
+      const group = path.split('/').slice(-2)[0];
+      setGroup(group);
+      setPage(page);
+    }
+  }, []);
+
   return (
     <div className='container-wrapper'>
-      <main className='words main words_is_a1 words_is_learned'>
+      <main className={`words main words_is_${group}`}>
+         {/* words_is_learned */}
         <div className='container-inner'>
           <div className='words__container'>
             <div className='words__games'>
-              <Link className='words__game-link words__game-link_is_audiocall words__game-link_is_disabled' to='/audiocall'>Аудиовызов</Link>
+              {/* words__game-link_is_disabled */}
+              <Link className='words__game-link words__game-link_is_audiocall' to='/audiocall'>Аудиовызов</Link>
               <Link className='words__game-link words__game-link_is_savannah' to='/sprint'>Спринт</Link>
             </div>
-            <Groups />
+
+            <Groups setPage={setPage} setGroup={setGroup} />
 
             <div className='words__words-block'>
               <div className='words__word word-card'>
@@ -44,8 +64,8 @@ const Words = () => {
                   </div>
                 </div>
               </div>
-
-              <div className='words__word word-card word-card_is_hard'>
+              {/* word-card_is_hard */}
+              <div className='words__word word-card'>
                 <div className='word-card__picture'></div>
 
                 <div className='word-card__desc'>
@@ -72,8 +92,8 @@ const Words = () => {
                   </div>
                 </div>
               </div>
-
-              <div className='words__word word-card word-card_is_learned'>
+               {/* word-card_is_learned */}
+              <div className='words__word word-card'>
                 <div className='word-card__picture'></div>
 
                 <div className='word-card__desc'>
@@ -102,7 +122,7 @@ const Words = () => {
               </div>
             </div>
 
-            <Pagination />
+            <Pagination page={page} group={group} setPage={setPage} />
           </div>
         </div>
       </main>
