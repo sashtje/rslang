@@ -3,6 +3,22 @@ $headers-font: 'Neue Machina', sans-serif;
 .words {
   box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.3);
 
+  &_is_learned {
+    .words__game-link {
+      pointer-events: none;
+      cursor: default;
+      color: #888;
+    }
+
+    .words__game-link_is_audiocall {
+      background-image: url('./assets/img/textbook/earmuffs-gray.png');
+    }
+
+    .words__game-link_is_savannah {
+      background-image: url('./assets/img/textbook/lion-gray.png');
+    }
+  }
+
   &_is_a1 {
     &.words_is_learned {
       background-color: rgba(255, 31, 31, 0.1);
@@ -257,20 +273,6 @@ $headers-font: 'Neue Machina', sans-serif;
     &_is_savannah {
       background-image: url('./assets/img/textbook/lion.png');
     }
-
-    &_is_disabled {
-      pointer-events: none;
-      cursor: default;
-      color: #888;
-
-      &.words__game-link_is_audiocall {
-        background-image: url('./assets/img/textbook/earmuffs-gray.png');
-      }
-
-      &.words__game-link_is_savannah {
-        background-image: url('./assets/img/textbook/lion-gray.png');
-      }
-    }
   }
 
   &__words-block {
@@ -284,6 +286,10 @@ $headers-font: 'Neue Machina', sans-serif;
     & + .words__word {
       margin-top: 30px;
     }
+  }
+
+  &__loader {
+    margin: 50px 0;
   }
 }
 
@@ -301,7 +307,6 @@ $headers-font: 'Neue Machina', sans-serif;
 
   &__picture {
     flex: 0 0 30%;
-    background-image: url('./assets/img/textbook/test.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -329,6 +334,7 @@ $headers-font: 'Neue Machina', sans-serif;
     font-size: 22px;
     line-height: 1;
     font-weight: bold;
+    text-transform: capitalize;
   }
 
   &__transcript {
@@ -345,14 +351,22 @@ $headers-font: 'Neue Machina', sans-serif;
     align-items: center;
     cursor: pointer;
 
+    &:hover {
+      svg {
+        transform: scale(1.2);
+      }
+    }
+
     svg {
       width: 25px;
+      transition: 0.3s;
     }
   }
 
   &__title-translate {
     color: #999999;
     margin-top: 5px;
+    text-transform: capitalize;
   }
 
   &__def {

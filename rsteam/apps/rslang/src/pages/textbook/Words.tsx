@@ -3,12 +3,18 @@ import Footer from '../../components/UI/footer/Footer';
 import Groups from '../../components/UI/groups/Groups';
 import { Link } from 'react-router-dom';
 import Pagination from '../../components/UI/pagination/Pagination';
+import WordCard from '../../components/WordCard';
+import Loader from '../../components/UI/loader/Loader';
+import axios from 'axios';
 
 const Words = () => {
   const [group, setGroup] = useState(null);
   const [page, setPage] = useState(null);
 
-  useEffect(() => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [words, setWords] = useState([]);
+
+  const setPageAndGroup = () => {
     const path = window.location.pathname;
 
     if (path.includes('hard')) {
@@ -20,7 +26,66 @@ const Words = () => {
       setGroup(group);
       setPage(page);
     }
+  };
+
+  const getNumberGroup = () => {
+    let numberGroup = '';
+
+    switch (group) {
+      case 'a1':
+        numberGroup = '0';
+        break;
+      
+      case 'a2':
+        numberGroup = '1';
+        break;
+
+      case 'b1':
+        numberGroup = '2';
+        break;
+
+      case 'b2':
+        numberGroup = '3';
+        break;
+
+      case 'c1':
+        numberGroup = '4';
+        break;
+
+      case 'c2':
+        numberGroup = '5';
+        break;
+    }
+
+    return numberGroup;
+  };
+
+  const fetchWords = async () => {
+    setIsLoaded(true);
+
+    try {
+      const response = await axios({
+        url: `https://react-learnwords-rs.herokuapp.com/words?group=${getNumberGroup()}&page=${page - 1}`,
+        headers: { "accept": "application/json"}
+      });
+      const data = await response.data;
+      setWords(data);
+    } catch (error) {
+      setWords([]);
+    } finally {
+      setIsLoaded(false);
+    }
+  };
+
+  useEffect(() => {
+    setPageAndGroup();
   }, []);
+
+  useEffect(() => {
+    if (group) {
+      fetchWords();
+    }
+  }, [group, page]);
 
   return (
     <div className='container-wrapper'>
@@ -29,98 +94,26 @@ const Words = () => {
         <div className='container-inner'>
           <div className='words__container'>
             <div className='words__games'>
-              {/* words__game-link_is_disabled */}
               <Link className='words__game-link words__game-link_is_audiocall' to='/audiocall'>Аудиовызов</Link>
               <Link className='words__game-link words__game-link_is_savannah' to='/sprint'>Спринт</Link>
             </div>
 
             <Groups setPage={setPage} setGroup={setGroup} />
 
-            <div className='words__words-block'>
-              <div className='words__word word-card'>
-                <div className='word-card__picture'></div>
-
-                <div className='word-card__desc'>
-                  <div className='word-card__title-block'>
-                    <h2 className='word-card__title'>Enjoy</h2>
-                    <span className='word-card__transcript'>[kǽmərə]</span>
-                    <button className='word-card__btn-sound'>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                      </svg>
-                    </button>
-                  </div>
-                  <div className='word-card__title-translate'>Наслаждаться</div>
-
-                  <p className='word-card__def'>To enjoy is to like something.</p>
-                  <p className='word-card__def-translate'>Наслаждаться значит любить что-то</p>
-
-                  <p className='word-card__example'>The woman enjoys riding her bicycle.</p>
-                  <p className='word-card__example-translate'>Женщина любит кататься на велосипеде</p>
-
-                  <div className='word-card__controls'>
-                    <button className='word-card__btn-hard'>Добавить к сложным</button>
-                    <button className='word-card__btn-learned'>Добавить к изученным</button>
-                  </div>
+            {
+              isLoaded
+              ? <div className='words__loader'>
+                  <Loader />
                 </div>
-              </div>
-              {/* word-card_is_hard */}
-              <div className='words__word word-card'>
-                <div className='word-card__picture'></div>
-
-                <div className='word-card__desc'>
-                  <div className='word-card__title-block'>
-                    <h2 className='word-card__title'>Enjoy</h2>
-                    <span className='word-card__transcript'>[kǽmərə]</span>
-                    <button className='word-card__btn-sound'>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                      </svg>
-                    </button>
-                  </div>
-                  <div className='word-card__title-translate'>Камера</div>
-
-                  <p className='word-card__def'>To enjoy is to like something.</p>
-                  <p className='word-card__def-translate'>Наслаждаться значит любить что-то</p>
-
-                  <p className='word-card__example'>The woman enjoys riding her bicycle.</p>
-                  <p className='word-card__example-translate'>Женщина любит кататься на велосипеде</p>
-
-                  <div className='word-card__controls'>
-                    <button className='word-card__btn-hard'>Добавить к сложным</button>
-                    <button className='word-card__btn-learned'>Добавить к изученным</button>
-                  </div>
+              : <div
+                  className='words__words-block'
+                >
+                  {words.map((word) =>
+                    <WordCard key={word.id} word={word} />
+                  )}
                 </div>
-              </div>
-               {/* word-card_is_learned */}
-              <div className='words__word word-card'>
-                <div className='word-card__picture'></div>
-
-                <div className='word-card__desc'>
-                  <div className='word-card__title-block'>
-                    <h2 className='word-card__title'>Enjoy</h2>
-                    <span className='word-card__transcript'>[kǽmərə]</span>
-                    <button className='word-card__btn-sound'>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                      </svg>
-                    </button>
-                  </div>
-                  <div className='word-card__title-translate'>Камера</div>
-
-                  <p className='word-card__def'>To enjoy is to like something.</p>
-                  <p className='word-card__def-translate'>Наслаждаться значит любить что-то</p>
-
-                  <p className='word-card__example'>The woman enjoys riding her bicycle.</p>
-                  <p className='word-card__example-translate'>Женщина любит кататься на велосипеде</p>
-
-                  <div className='word-card__controls'>
-                    <button className='word-card__btn-hard'>Добавить к сложным</button>
-                    <button className='word-card__btn-learned'>Добавить к изученным</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            }
+            
 
             <Pagination page={page} group={group} setPage={setPage} />
           </div>
