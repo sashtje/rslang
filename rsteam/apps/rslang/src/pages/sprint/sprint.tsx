@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SprintGame from './sprintGame';
+import { Link } from 'react-router-dom';
 
 // const selectOptions = [
 //   {value: 1},
@@ -43,7 +44,10 @@ const Sprint = ({ gameToStart = false, lvlSelected = 1 }) => {
               <option value="5">5</option>
               <option value="6">6</option>
             </select>
-            <div className="btn" onClick={()=>setgameStatus(true)}>Начать игру</div>
+            <Link to={`/sprint-game/${selectedOption}`}className='btn'>
+              Начать игру
+            </Link>
+            
           </div>
         </div>
       </div>
@@ -52,7 +56,7 @@ const Sprint = ({ gameToStart = false, lvlSelected = 1 }) => {
   else {
     return (
       <div className="sprint__wrapper">
-        <SprintGame chosenLvl={selectedOption}></SprintGame>
+        <SprintGame></SprintGame>
       </div>
     )
   }
