@@ -13,6 +13,7 @@ const Words = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [words, setWords] = useState([]);
+  const [isArrMusic, setIsArrMusic] = useState([]);
 
   const setPageAndGroup = () => {
     const path = window.location.pathname;
@@ -84,6 +85,12 @@ const Words = () => {
   useEffect(() => {
     if (group) {
       fetchWords();
+      //для всех групп кроме hard
+      const isArrMusic = [];
+      for (let i = 0; i < 20; i++) {
+        isArrMusic.push(false);
+      }
+      setIsArrMusic(isArrMusic);
     }
   }, [group, page]);
 
@@ -108,8 +115,8 @@ const Words = () => {
               : <div
                   className='words__words-block'
                 >
-                  {words.map((word) =>
-                    <WordCard key={word.id} word={word} />
+                  {words.map((word, ind) =>
+                    <WordCard key={word.id} word={word} isArrMusic={isArrMusic} setIsArrMusic={setIsArrMusic} ind={ind} />
                   )}
                 </div>
             }
