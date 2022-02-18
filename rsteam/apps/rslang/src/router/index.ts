@@ -7,6 +7,7 @@ import Statistics from '../pages/statistics/Statistics';
 import Login from '../pages/login/Login';
 import SignUp from '../pages/signup/SingUp';
 import Words from '../pages/textbook/Words';
+import SprintGame from '../pages/sprint/sprintGame';
 
 const MAX_PAGES = 30;
 
@@ -16,6 +17,7 @@ export const routes = [
   {path: "/textbook", element: Textbook},
   {path: "/textbook/hard", element: Words},
   {path: "/sprint", element: Sprint},
+  {path: "/sprint-game/:chosenLvl", element: SprintGame},
   {path: "/audiocall", element: Audiocall},
   {path: "/statistics", element: Statistics},
   {path: "/login", element: Login},
