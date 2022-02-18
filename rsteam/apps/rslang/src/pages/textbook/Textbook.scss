@@ -98,10 +98,6 @@ $headers-font: 'Neue Machina', sans-serif;
     cursor: pointer;
     transition: 0.3s;
 
-    &_is_active {
-      border: 1px solid #ed7051;
-    }
-
     &_is_a1 {
       color: #ff1f1f;
 
@@ -186,5 +182,47 @@ $headers-font: 'Neue Machina', sans-serif;
         box-shadow: inset 0px 8px 15px rgba(210, 211, 0, 0.5);
       }
     }
+  }
+}
+
+.words_is_a1 {
+  .textbook__group-link_is_active {
+    border: 1px solid #ff1f1f;
+  }
+}
+
+.words_is_a2 {
+  .textbook__group-link_is_active {
+    border: 1px solid #cb6805;
+  }
+}
+
+.words_is_b1 {
+  .textbook__group-link_is_active {
+    border: 1px solid #56cd08;
+  }
+}
+
+.words_is_b2 {
+  .textbook__group-link_is_active {
+    border: 1px solid #0ab5e5;
+  }
+}
+
+.words_is_c1 {
+  .textbook__group-link_is_active {
+    border: 1px solid #043bf8;
+  }
+}
+
+.words_is_c2 {
+  .textbook__group-link_is_active {
+    border: 1px solid #ff0ed9;
+  }
+}
+
+.words_is_hard {
+  .textbook__group-link_is_active {
+    border: 1px solid #d2d300;
   }
 }

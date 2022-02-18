@@ -3,6 +3,22 @@ $headers-font: 'Neue Machina', sans-serif;
 .words {
   box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.3);
 
+  &_is_learned {
+    .words__game-link {
+      pointer-events: none;
+      cursor: default;
+      color: #888;
+    }
+
+    .words__game-link_is_audiocall {
+      background-image: url('./assets/img/textbook/earmuffs-gray.png');
+    }
+
+    .words__game-link_is_savannah {
+      background-image: url('./assets/img/textbook/lion-gray.png');
+    }
+  }
+
   &_is_a1 {
     &.words_is_learned {
       background-color: rgba(255, 31, 31, 0.1);
@@ -23,6 +39,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(255, 31, 31, 0.5);
+      color: #ff1f1f;
     }
 
     .word-card__btn-hard:active,
@@ -55,6 +72,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(203, 104, 5, 0.5);
+      color: #cb6805;
     }
 
     .word-card__btn-hard:active,
@@ -87,6 +105,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(86, 205, 8, 0.5);
+      color: #56cd08;
     }
 
     .word-card__btn-hard:active,
@@ -119,6 +138,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(10, 181, 229, 0.5);
+      color: #0ab5e5;
     }
 
     .word-card__btn-hard:active,
@@ -151,6 +171,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(4, 59, 248, 0.5);
+      color: #043bf8;
     }
 
     .word-card__btn-hard:active,
@@ -183,6 +204,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(255, 14, 217, 0.5);
+      color: #ff0ed9;
     }
 
     .word-card__btn-hard:active,
@@ -199,6 +221,7 @@ $headers-font: 'Neue Machina', sans-serif;
     .word-card__btn-hard:hover,
     .word-card__btn-learned:hover {
       box-shadow: 0px 8px 15px rgba(210, 211, 0, 0.5);
+      color: #d2d300;
     }
 
     .word-card__btn-hard:active,
@@ -250,20 +273,6 @@ $headers-font: 'Neue Machina', sans-serif;
     &_is_savannah {
       background-image: url('./assets/img/textbook/lion.png');
     }
-
-    &_is_disabled {
-      pointer-events: none;
-      cursor: default;
-      color: #888;
-
-      &.words__game-link_is_audiocall {
-        background-image: url('./assets/img/textbook/earmuffs-gray.png');
-      }
-
-      &.words__game-link_is_savannah {
-        background-image: url('./assets/img/textbook/lion-gray.png');
-      }
-    }
   }
 
   &__words-block {
@@ -278,9 +287,14 @@ $headers-font: 'Neue Machina', sans-serif;
       margin-top: 30px;
     }
   }
+
+  &__loader {
+    margin: 50px 0;
+  }
 }
 
 .word-card {
+  color: #000000;
   box-shadow: 0px 8px 15px rgba(182, 185, 191, 0.5);
   border-radius: 8px;
   padding: 20px;
@@ -294,7 +308,6 @@ $headers-font: 'Neue Machina', sans-serif;
 
   &__picture {
     flex: 0 0 30%;
-    background-image: url('./assets/img/textbook/test.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -322,6 +335,7 @@ $headers-font: 'Neue Machina', sans-serif;
     font-size: 22px;
     line-height: 1;
     font-weight: bold;
+    text-transform: capitalize;
   }
 
   &__transcript {
@@ -338,14 +352,23 @@ $headers-font: 'Neue Machina', sans-serif;
     align-items: center;
     cursor: pointer;
 
+    &:hover {
+      svg {
+        transform: scale(1.2);
+      }
+    }
+
     svg {
       width: 25px;
+      transition: 0.3s;
     }
   }
 
   &__title-translate {
     color: #999999;
     margin-top: 5px;
+    text-transform: capitalize;
+    font-weight: bold;
   }
 
   &__def {
@@ -353,8 +376,12 @@ $headers-font: 'Neue Machina', sans-serif;
   }
 
   &__def-translate {
-    margin-top: 5px;
-    color: #999999;
+    margin-top: 10px;
+    color: #888888;
+
+    @media screen and (max-width: 500px) {
+      font-size: 15px;
+    }
   }
 
   &__example {
@@ -362,8 +389,12 @@ $headers-font: 'Neue Machina', sans-serif;
   }
 
   &__example-translate {
-    margin-top: 5px;
-    color: #999999;
+    margin-top: 10px;
+    color: #888888;
+
+    @media screen and (max-width: 500px) {
+      font-size: 15px;
+    }
   }
 
   &__controls {
@@ -375,6 +406,7 @@ $headers-font: 'Neue Machina', sans-serif;
 
   &__btn-hard,
   &__btn-learned {
+    font-family: inherit;
     background-color: #ffffff;
     border: none;
     padding: 10px 15px;
