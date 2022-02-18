@@ -79,6 +79,8 @@ const SprintGame = () => {
     }
   }
 
+  
+
   function checkAnswer(bool) {
     if((qOne.ru === qTwo) === bool) {
       roundWin();
@@ -86,27 +88,33 @@ const SprintGame = () => {
       roundLose();
     }
 
-    if (questionId < 5) {
+    if (questionId < 20) {
       newRound()
     } else {
       setRoundEnded(true)
     }
   }
 
-  function startGame() {
-    startTimer()
-    newRound()
-  }
+  
 
   function startTimer() {
+    
     myTimer = setInterval(countDown, 1000);
   }
 
   function countDown() {
+    console.log('timer')
     let newSeconds = timer - 1;
     setTimer(timer - 1)
     
   }
+
+  
+  function startGame() {
+    startTimer()
+    newRound()
+  }
+ 
 
   function roundWin() {
     setTotalScore(totalScore += 10);
@@ -118,7 +126,7 @@ const SprintGame = () => {
     setQuestionId(questionId += 1)
     setPointerClass('wrong')
   }
-
+  
   
 };
 
