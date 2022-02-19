@@ -8,7 +8,7 @@ import { AuthContext } from '../../context/index';
 import Loader from '../../components/UI/loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import {getSafeGeneralStat} from '../../fetch/fetch';
-import { getDefaultStat } from '../../fetch/stats';
+import { getDefaultStat, getTestStat } from '../../fetch/stats';
 
 const Statistics = () => {
   const {isAuth, setIsAuth} = useContext(AuthContext);
@@ -17,7 +17,7 @@ const Statistics = () => {
   const [stat, setStat] = useState(getDefaultStat(date));
   const navigate = useNavigate();
 
-  const createChart = (id) => {
+  const createChart = (id, arrData, zero = true) => {
     let root = am5.Root.new(id);
 
     root.setThemes([
@@ -25,7 +25,7 @@ const Statistics = () => {
       am5themes_Material.new(root)
     ]);
 
-    var chart = root.container.children.push(am5xy.XYChart.new(root, {
+    let chart = root.container.children.push(am5xy.XYChart.new(root, {
       panX: true,
       panY: true,
       wheelX: "panX",
@@ -34,30 +34,54 @@ const Statistics = () => {
 
     // Add cursor
     // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-    var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
+    let cursor = chart.set("cursor", am5xy.XYCursor.new(root, {
       behavior: "none"
     }));
     cursor.lineY.set("visible", false);
 
+    function fillDatasWithDefault(zero, data) {
+      const res = [];
 
-    // Generate random data
-    var date = new Date();
-    date.setHours(0, 0, 0, 0);
-    var value = 100;
+      for (let i = 1; i < data.length; i++) {
+        res.push(data[i - 1]);
+        if (data[i - 1].date + 24 * 3600 * 1000 === data[i].date) continue;
 
-    function generateData() {
-      value = Math.round((Math.random() * 10 - 5) + value);
-      am5.time.add(date, "day", 1);
-      return {
-        date: date.getTime(),
-        value: value
-      };
+        let date = data[i - 1].date + 24 * 3600 * 1000;
+
+        while (date < data[i].date) {
+          if (zero) {
+            res.push({
+              date,
+              value: 0
+            });
+          } else {
+            res.push({
+              date,
+              value: data[i - 1].value
+            });
+          }
+          date += 24 * 3600 * 1000;
+        }
+      }
+
+      res.push(data[data.length - 1]);
+
+      return res;
     }
 
-    function generateDatas(count) {
-      var data = [];
-      for (var i = 0; i < count; ++i) {
-        data.push(generateData());
+    function generateDatas(arrData) {
+      let data = [];
+      for (let i = 0; i < arrData.length; i++) {
+        let date = new Date(arrData[i][0]);
+        let value = arrData[i][1];
+        data.push({
+          date: date.getTime(),
+          value: value
+        });
+      }
+
+      if (data.length > 1) {
+        data = fillDatasWithDefault(zero, data);
       }
       return data;
     }
@@ -65,7 +89,7 @@ const Statistics = () => {
 
     // Create axes
     // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-    var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+    let xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
       maxDeviation: 0.5,
       baseInterval: {
         timeUnit: "day",
@@ -77,8 +101,9 @@ const Statistics = () => {
       tooltip: am5.Tooltip.new(root, {})
     }));
 
-    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+    let yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
       maxDeviation:1,
+      min: 0,
       renderer: am5xy.AxisRendererY.new(root, {
       pan:"zoom"
     })
@@ -87,7 +112,7 @@ const Statistics = () => {
 
     // Add series
     // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-    var series = chart.series.push(am5xy.SmoothedXLineSeries.new(root, {
+    let series = chart.series.push(am5xy.SmoothedXLineSeries.new(root, {
       name: "Series",
       xAxis: xAxis,
       yAxis: yAxis,
@@ -123,7 +148,7 @@ const Statistics = () => {
     }));
 
 
-    var data = generateDatas(50);
+    let data = generateDatas(arrData);
     series.data.setAll(data);
 
 
@@ -142,13 +167,20 @@ const Statistics = () => {
       navigate('/login');
       return;
     }
-    setStat(st.optional);
 
-    /* createChart("chart-new-words");
-    createChart("chart-learned-words"); */
+    // const st = getTestStat();
+
+    setStat(st.optional);
 
     setIsLoaded(false);
   };
+
+  useEffect(() => {
+    if (!isLoaded && isAuth) {
+      createChart("chart-new-words", stat.stats.graphNewWords);
+      createChart("chart-learned-words", stat.stats.graphLearnedWords, false);
+    }
+  }, [isLoaded]);
 
   useEffect(() => {
     if (isAuth || localStorage.getItem('token')) {
@@ -179,7 +211,7 @@ const Statistics = () => {
                     </div>
 
                     <div className='stat-today-mark'>
-                      <div className='stat-today-mark__number'>{!stat.stats.all.numberRightAnswers ? 0 : stat.stats.all.numberRightAnswers / stat.stats.all.numberAllAnswers * 100}</div>
+                      <div className='stat-today-mark__number'>{!stat.stats.all.numberRightAnswers ? 0 : Math.round(stat.stats.all.numberRightAnswers / stat.stats.all.numberAllAnswers * 100)}</div>
                       <div className='stat-today-mark__desc'>% правильных ответов</div>
                     </div>
                   </div>
@@ -195,7 +227,7 @@ const Statistics = () => {
                           </tr>
                           <tr className='stat-today-game__row'>
                             <td className='stat-today-game__title'>Процент правильных слов:</td>
-                            <td className='stat-today-game__number'>{!stat.stats.sprint.numberRightAnswers ? 0 : stat.stats.sprint.numberRightAnswers / stat.stats.sprint.numberAllAnswers * 100}</td>
+                            <td className='stat-today-game__number'>{!stat.stats.sprint.numberRightAnswers ? 0 : Math.round(stat.stats.sprint.numberRightAnswers / stat.stats.sprint.numberAllAnswers * 100)}</td>
                           </tr>
                           <tr className='stat-today-game__row'>
                             <td className='stat-today-game__title'>Самая длительная серия правильных ответов:</td>
@@ -215,7 +247,7 @@ const Statistics = () => {
                           </tr>
                           <tr className='stat-today-game__row'>
                             <td className='stat-today-game__title'>Процент правильных слов:</td>
-                            <td className='stat-today-game__number'>{!stat.stats.audiocall.numberRightAnswers ? 0 : stat.stats.audiocall.numberRightAnswers / stat.stats.audiocall.numberAllAnswers * 100}</td>
+                            <td className='stat-today-game__number'>{!stat.stats.audiocall.numberRightAnswers ? 0 : Math.round(stat.stats.audiocall.numberRightAnswers / stat.stats.audiocall.numberAllAnswers * 100)}</td>
                           </tr>
                           <tr className='stat-today-game__row'>
                             <td className='stat-today-game__title'>Самая длительная серия правильных ответов:</td>
