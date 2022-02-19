@@ -1,8 +1,7 @@
-{
-  "learnedWords": 0,
-  "optional": {
+export function getDefaultStat(currDate) {
+  return {
     "stats": {
-      "date": "Fri Feb 18 2022",
+      "date": currDate,
       "sprint": {
           "numberNewWords": 0,
           "longestBingo": 0,
@@ -19,18 +18,36 @@
           "numberNewWords": 0,
           "numberLearnedWords": 0,
           "numberRightAnswers": 0,
-          "numberAllAnswers": 0 
+          "numberAllAnswers": 0
       },
       "graphNewWords": [
-        {
-          "Fri Feb 18 2022": 0
-        }
+        [
+          currDate, 0
+        ]
       ],
       "graphLearnedWords": [
-        {
-          "Fri Feb 18 2022": 0
-        }
+        [
+          currDate, 0
+        ]
       ]
     }
   }
+}
+
+export function getDefaultGames() {
+  return {
+    "numberNewWords": 0,
+    "longestBingo": 0,
+    "numberRightAnswers": 0,
+    "numberAllAnswers": 0
+  };
+}
+
+export function getDefaultAll() {
+  return {
+    "numberNewWords": 0,
+    "numberLearnedWords": 0,
+    "numberRightAnswers": 0,
+    "numberAllAnswers": 0
+  };
 }
