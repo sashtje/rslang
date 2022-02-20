@@ -91,7 +91,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    
+
     &.correct {
       background-image: url('./assets/svg/sprint/correct.svg');
     }
@@ -150,5 +150,78 @@
     &:hover {
       background: #37A766;
     }
+  }
+}
+
+.sprintStats {
+
+  &__container {
+    width: 600px;
+    padding: 20px 30px 50px 30px;
+    background-color: #fff;
+
+    p {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+  }
+
+  &__mistake_block {
+    margin-bottom: 40px;
+
+    span {
+      display: inline-block;
+      background-color: #F16A62;
+      width: 38px;
+      height: 21px;
+      text-align: center;
+      border-radius: 20px;
+      margin-left: 5px;
+    }
+  }
+
+  &__mistake {
+
+  }
+
+  &__correct_block {
+
+    span {
+      display: inline-block;
+      background-color: #63C69F;
+      width: 38px;
+      height: 21px;
+      text-align: center;
+      border-radius: 20px;
+      margin-left: 5px;
+    }
+  }
+
+  &__correct {
+    display: flex;
+  }
+
+  &__wrong {
+    display: flex;
+  }
+
+  &__volumeIcon {
+    width: 22px;
+    height: 22px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('./assets/svg/sprint/volume_up.svg');
+  }
+
+  &__play-btn {
+    margin-right: 5px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('./assets/svg/sprint/volume_up.svg');
   }
 }

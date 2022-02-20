@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SprintGame from './SprintGame';
+import SprintGame from './sprintGame';
 import { Link } from 'react-router-dom';
 
 // const selectOptions = [
