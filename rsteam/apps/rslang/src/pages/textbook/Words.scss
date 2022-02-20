@@ -371,8 +371,74 @@ $headers-font: 'Neue Machina', sans-serif;
     font-weight: bold;
   }
 
+  &__stat-all {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__stat-right {
+    font-family: $headers-font;
+    padding: 5px 10px 5px 30px;
+    background-image: url('./assets/svg/sprint/correct.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 5px center;
+  }
+
+  &__stat-wrong {
+    font-family: $headers-font;
+    padding: 5px 10px 5px 30px;
+    background-image: url('./assets/svg/sprint/wrong.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 5px center;
+  }
+
+  &__last-answers {
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    border: 1px solid #000000;
+    padding: 5px;
+    gap: 5px;
+    width: 82px;
+    height: 32px;
+
+    &_is_hidden {
+      display: none;
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      width: 5px;
+      height: 18px;
+      background-color: #000000;
+      right: -6px;
+      top: 7px;
+    }
+
+    &-right,
+    &-wrong {
+      width: 10px;
+      height: 20px;
+      border-radius: 2px;
+    }
+
+    &-right {
+      background-color: #56cd08;
+    }
+
+    &-wrong {
+      background-color: #f60c0c;
+    }
+  }
+
   &__def {
-    margin-top: 40px;
+    margin-top: 30px;
   }
 
   &__def-translate {

@@ -9,6 +9,10 @@ const WordCard = ({word, isArrMusic, setIsArrMusic, ind}) => {
   const [audioMeaning] = useState(new Audio(`${basePath}${word.audioMeaning}`));
   const [audioExample] = useState(new Audio(`${basePath}${word.audioExample}`));
 
+  const [numRA, setNumRA] = useState(0);
+  const [numWA, setNumWA] = useState(0);
+  const [lastAnsw, setLastAnsw] = useState([false, true, false, true, true]);
+
   const turnOffMusic = () => {
     if (audio.played) {
       audio.pause();
@@ -97,6 +101,30 @@ const WordCard = ({word, isArrMusic, setIsArrMusic, ind}) => {
           </button>
         </div>
         <div className='word-card__title-translate'>{word.wordTranslate}</div>
+
+        {
+          isAuth
+          ? <div className='word-card__stat-all'>
+              <div className='word-card__stat-right'>
+                {numRA}
+              </div>
+
+              <div className='word-card__stat-wrong'>
+                {numWA}
+              </div>
+            </div>
+          : ''
+        }
+
+        {
+          isAuth
+          ? <div className={lastAnsw.length === 0? 'word-card__last-answers word-card__last-answers_is_hidden' : 'word-card__last-answers'}>
+              {lastAnsw.map((answ, ind) => 
+                <div key={ind} className={answ ? 'word-card__last-answers-right' : 'word-card__last-answers-wrong'}></div>
+              )}
+            </div>
+          : ''
+        }
 
         <p className='word-card__def' dangerouslySetInnerHTML={{__html: word.textMeaning}}></p>
         <p className='word-card__def-translate'>{word.textMeaningTranslate}</p>
