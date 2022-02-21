@@ -38,7 +38,7 @@ const Login = () => {
         }
       });
 
-      const data = response.data;
+      const data = await response.data;
 
       localStorage.setItem('token', data.token);
       localStorage.setItem('refreshToken', data.refreshToken);

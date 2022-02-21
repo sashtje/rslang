@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Footer from '../../components/UI/footer/Footer';
 import Groups from '../../components/UI/groups/Groups';
 import { Link } from 'react-router-dom';
@@ -6,14 +6,24 @@ import Pagination from '../../components/UI/pagination/Pagination';
 import WordCard from '../../components/WordCard';
 import Loader from '../../components/UI/loader/Loader';
 import axios from 'axios';
+import { AuthContext } from '../../context/index';
+import { getSafeInfoAboutWords, getSafeHardWords, getSafeInfoAboutAllPages } from '../../fetch/fetch';
+import { getDefaultStat } from '../../fetch/stats';
+import {getSafeGeneralStat} from '../../fetch/fetch';
 
 const Words = () => {
+  const {isAuth, setIsAuth} = useContext(AuthContext);
   const [group, setGroup] = useState(null);
   const [page, setPage] = useState(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
   const [words, setWords] = useState([]);
   const [isArrMusic, setIsArrMusic] = useState([]);
+
+  const [wordsUser, setWordsUser] = useState([]);
+  const [wordsPagPerPage, setWordsPagPerPage] = useState([]);
+  const date = new Date();
+  const [stat, setStat] = useState(getDefaultStat(date));
 
   const setPageAndGroup = () => {
     const path = window.location.pathname;
@@ -62,41 +72,127 @@ const Words = () => {
   };
 
   const fetchWords = async () => {
-    setIsLoaded(true);
+    let data = [];
 
     try {
       const response = await axios({
         url: `https://react-learnwords-rs.herokuapp.com/words?group=${getNumberGroup()}&page=${page - 1}`,
         headers: { "accept": "application/json"}
       });
-      const data = await response.data;
+      data = await response.data;
       setWords(data);
     } catch (error) {
       setWords([]);
-    } finally {
-      setIsLoaded(false);
+      return;
     }
+
+    if (isAuth || localStorage.getItem('token')) {
+      //download all info about words and pagination
+      const userWords = await getSafeInfoAboutWords(data);
+      if (userWords === "error") {
+        console.log('userWords');
+
+        setIsAuth(false);
+        localStorage.clear();
+        return;
+      }
+      setWordsUser(userWords as any[]);
+      const pagWords = await getSafeInfoAboutAllPages(getNumberGroup());
+      if (pagWords === "error") {
+        console.log('pagWords');
+
+        setIsAuth(false);
+        localStorage.clear();
+        return;
+      }
+      setWordsPagPerPage(pagWords as any[]);
+    }
+  };
+
+  const fetchHardWords = async () => {
+    //download all info about words
+    let words = await getSafeHardWords();
+    if (words === "error") {
+      setIsAuth(false);
+      localStorage.clear();
+      return;
+    }
+
+    //сортировать слова
+    words.sort((a, b) => {
+      if (a.word.toLowerCase() >= b.word.toLowerCase()) {
+        return 1;
+      }
+      return -1;
+    });
+
+    words = words.map((word) => {
+      word.id = word._id;
+      delete word._id;
+      return word;
+    });
+
+    setWords(words);
+
+    const userWords = await getSafeInfoAboutWords(words);
+    if (userWords === "error") {
+      setIsAuth(false);
+      localStorage.clear();
+      return;
+    }
+    setWordsUser(userWords as any[]);
+  };
+
+  const getLongStat = async () => {
+    const currDate = date.toDateString();
+    const st = await getSafeGeneralStat(currDate, true);
+
+    if (st === 'error') {
+      setIsAuth(false);
+      localStorage.clear();
+      return;
+    }
+
+    setStat(st);
   };
 
   useEffect(() => {
     setPageAndGroup();
+    if (isAuth || localStorage.getItem('token')) {
+      getLongStat();
+    }
   }, []);
+
+  const changeWordsData = async (group, page) => {
+    setIsLoaded(true);
+
+    if (group !== 'hard') {
+      await fetchWords();
+    } else {
+      await fetchHardWords();
+    }
+
+    setIsLoaded(false);
+  };
+
+  useEffect(() => {
+    const isArrMusic = [];
+
+    for (let i = 0; i < words.length; i++) {
+      isArrMusic.push(false);
+    }
+    setIsArrMusic(isArrMusic);
+  }, [words]);
 
   useEffect(() => {
     if (group) {
-      fetchWords();
-      //для всех групп кроме hard
-      const isArrMusic = [];
-      for (let i = 0; i < 20; i++) {
-        isArrMusic.push(false);
-      }
-      setIsArrMusic(isArrMusic);
+      changeWordsData(group, page);
     }
   }, [group, page]);
 
   return (
     <div className='container-wrapper'>
-      <main className={`words main words_is_${group}`}>
+      <main className={`words main words_is_${group}${wordsPagPerPage[page - 1] === 20 ? ' words_is_learned' : ''}`}>
          {/* words_is_learned */}
         <div className='container-inner'>
           <div className='words__container'>
@@ -116,13 +212,13 @@ const Words = () => {
                   className='words__words-block'
                 >
                   {words.map((word, ind) =>
-                    <WordCard key={word.id} word={word} isArrMusic={isArrMusic} setIsArrMusic={setIsArrMusic} ind={ind} />
+                    <WordCard key={word.id} word={word} isArrMusic={isArrMusic} setIsArrMusic={setIsArrMusic} ind={ind} group={group} page={page} wordsPagPerPage={wordsPagPerPage} setWordsPagPerPage={setWordsPagPerPage} stat={stat} setStat={setStat} words={words} setWords={setWords} wordsUser={wordsUser} setWordsUser={setWordsUser} />
                   )}
                 </div>
             }
             
 
-            <Pagination page={page} group={group} setPage={setPage} />
+            <Pagination page={page} group={group} setPage={setPage} wordsPagPerPage={wordsPagPerPage} />
           </div>
         </div>
       </main>
