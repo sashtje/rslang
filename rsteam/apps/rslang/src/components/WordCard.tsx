@@ -1,7 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/index';
+import {updateSafeWordData, putGeneralStat} from '../fetch/fetch';
+import {getDefaultGames, getDefaultAll} from '../fetch/stats';
 
-const WordCard = ({word, isArrMusic, setIsArrMusic, ind}) => {
+const WordCard = (
+  {word, isArrMusic, setIsArrMusic, ind, group, page, wordsPagPerPage, setWordsPagPerPage, stat, setStat, words, setWords, wordsUser, setWordsUser }
+) => {
   const basePath = 'https://react-learnwords-rs.herokuapp.com/';
   const {isAuth, setIsAuth} = useContext(AuthContext);
 
@@ -11,7 +15,9 @@ const WordCard = ({word, isArrMusic, setIsArrMusic, ind}) => {
 
   const [numRA, setNumRA] = useState(0);
   const [numWA, setNumWA] = useState(0);
-  const [lastAnsw, setLastAnsw] = useState([false, true, false, true, true]);
+  const [lastAnsw, setLastAnsw] = useState([]);
+
+  const [isBlockBtns, setIsBlockBtns] = useState(false);
 
   const turnOffMusic = () => {
     if (audio.played) {
@@ -60,6 +66,15 @@ const WordCard = ({word, isArrMusic, setIsArrMusic, ind}) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isAuth && wordsUser[ind]?.optional?.stats) {
+      const stat = wordsUser[ind].optional.stats;
+      setNumRA(stat.rightAnswers);
+      setNumWA(stat.wrongAnswers);
+      setLastAnsw(stat.answers.slice(0));
+    }
+  }, [wordsUser[ind]]);
+
   const turnOnOffMusic = () => {
     if (isArrMusic[ind]) {
       turnOffIsArrMusic();
@@ -76,10 +91,135 @@ const WordCard = ({word, isArrMusic, setIsArrMusic, ind}) => {
     }
   };
 
-  {/* word-card_is_hard */}
-  {/* word-card_is_learned */}
+  const checkHardOrLearned = (wordsUser) => {
+    const userWord = wordsUser[ind];
+    if (userWord?.difficulty === "easy") {
+      return '';
+    }
+    if (userWord?.difficulty === "hard") {
+      return 'word-card_is_hard';
+    }
+    return 'word-card_is_learned';
+  };
+
+  const returnTextHardBtn = (wordsUser) => {
+    const userWord = wordsUser[ind];
+
+    if (userWord?.difficulty === "hard") {
+      return 'Удалить из сложных';
+    }
+    return 'Добавить к сложным';
+  };
+
+  const returnTextLearnedBtn = (wordsUser) => {
+    const userWord = wordsUser[ind];
+
+    if (userWord?.difficulty === "learned") {
+      return 'Удалить из изученных';
+    }
+    return 'Добавить к изученным';
+  };
+
+  const returnUpToDateStat = (date) => {
+    if (stat.optional.stats.date !== date) {
+      stat.optional.stats.date = date;
+      stat.optional.stats.sprint = getDefaultGames();
+      stat.optional.stats.audiocall = getDefaultGames();
+      stat.optional.stats.all = getDefaultAll();
+      stat.optional.stats.graphNewWords.push([
+        date, 0
+      ]);
+
+      const graphLearnWords = stat.optional.stats.graphLearnedWords;
+      let lastValue = 0;
+
+      if (graphLearnWords.length > 0) 
+      {
+        lastValue = graphLearnWords[graphLearnWords.length - 1][1];
+      }
+      stat.optional.stats.graphLearnedWords.push([
+        date, lastValue
+      ]);
+    }
+  };
+
+  const incLearnedWordsStat = () => {
+    stat.optional.stats.all.numberLearnedWords++;
+    const arrLWords = stat.optional.stats.graphLearnedWords;
+    arrLWords[arrLWords.length - 1][1]++;
+  };
+
+  const clickBtnHard = async () => {
+    setIsBlockBtns(true);
+
+    const date = (new Date()).toDateString();
+    const userWord = wordsUser[ind];
+
+    if (group === 'hard') {
+      userWord.difficulty = 'easy';
+      userWord.optional.stats.answers = [];
+
+      const answer = await updateSafeWordData(word.id, userWord);
+
+      if (answer === 'error') {
+        isAuth(false);
+        localStorage.clear();
+        return;
+      }
+
+      setWords(words.slice(0, ind).concat(words.slice(ind + 1)));
+      setWordsUser(wordsUser.slice(0, ind).concat(wordsUser.slice(ind + 1)));
+
+    } else if (group !== 'hard' && userWord?.difficulty === 'hard') {
+
+    } else if (userWord?.difficulty === 'learned') {
+
+    } else {
+
+    }
+
+
+    setIsBlockBtns(false);
+  };
+
+  const clickBtnLearned = async () => {
+    setIsBlockBtns(true);
+
+    const date = (new Date()).toDateString();
+    const userWord = wordsUser[ind];
+
+    if (group === 'hard') {
+      userWord.difficulty = 'learned';
+
+      const answer = await updateSafeWordData(word.id, userWord);
+
+      if (answer === 'error') {
+        isAuth(false);
+        localStorage.clear();
+        return;
+      }
+
+      setWords(words.slice(0, ind).concat(words.slice(ind + 1)));
+      setWordsUser(wordsUser.slice(0, ind).concat(wordsUser.slice(ind + 1)));
+
+      returnUpToDateStat(date);
+      incLearnedWordsStat();
+      putGeneralStat(stat);
+      setStat(stat);
+
+    } else if (group !== 'hard' && userWord?.difficulty === 'hard') {
+
+    } else if (userWord?.difficulty === 'learned') {
+
+    } else {
+      
+    }
+
+    setIsBlockBtns(false);
+  };
+
   return (
-    <div className='words__word word-card'>
+    <div className={`words__word word-card${isAuth ?checkHardOrLearned(wordsUser) : ''}`}>
       <div className='word-card__picture' style={{backgroundImage: `url(${basePath}${word.image})`}}></div>
 
       <div className='word-card__desc'>
@@ -135,8 +275,18 @@ const WordCard = ({word, isArrMusic, setIsArrMusic, ind}) => {
         {
           isAuth
           ? <div className='word-card__controls'>
-              <button className='word-card__btn-hard'>Добавить к сложным</button>
-              <button className='word-card__btn-learned'>Добавить к изученным</button>
+              <button
+                className={isBlockBtns ? 'word-card__btn-hard word-card__btn-hard_is_disabled' : 'word-card__btn-hard'}
+                onClick={clickBtnHard}
+              >
+                {returnTextHardBtn(wordsUser)}
+              </button>
+              <button
+                className={isBlockBtns ? 'word-card__btn-learned word-card__btn-learned_is_disabled' : 'word-card__btn-learned'}
+                onClick={clickBtnLearned}
+              >
+                {returnTextLearnedBtn(wordsUser)}
+              </button>
             </div>
           : ''
         }

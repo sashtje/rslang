@@ -164,6 +164,7 @@ const Statistics = () => {
 
     if (st === 'error') {
       setIsAuth(false);
+      localStorage.clear();
       navigate('/login');
       return;
     }

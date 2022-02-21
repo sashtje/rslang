@@ -482,6 +482,13 @@ $headers-font: 'Neue Machina', sans-serif;
     transition: 0.3s;
   }
 
+  &__btn-hard_is_disabled,
+  &__btn-learned_is_disabled {
+    pointer-events: none;
+    cursor: default;
+    color: #888;
+  }
+
   &_is_hard {
     background-color: rgba(210, 211, 0, 0.1);
     border-color: rgba(210, 211, 0, 0.2);

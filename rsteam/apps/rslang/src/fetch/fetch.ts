@@ -89,6 +89,135 @@ const getGeneralStat = async () => {
   }
 };
 
+export const getInfoAboutWords = async (words) => {
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+
+  console.log('getInfoAboutWords words ',words);
+
+  try {
+    const response = await Promise.allSettled(words.map((word) => axios({
+      url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/words/${word.id}`,
+      method: 'get',
+      headers: {
+        "accept" : "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })));
+
+    console.log('getInfoAboutWords response ', response);
+
+    const data = response.map((res) => {
+      if (res.status === 'fulfilled') {
+        return res.value.data;
+      } else {
+        if (res.reason.response.status === 401) {
+          throw new Error();
+        }
+        return {
+            "difficulty": "easy",
+            "optional": {}
+        };
+      }
+    });
+
+    console.log('getInfoAboutWords ', data);
+
+    return data;
+  } catch {
+    return 'error';
+  }
+};
+
+export const getHardWords = async () => {
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+
+  try {
+    const response = await axios({
+      url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/aggregatedWords?wordsPerPage=3600&filter={"userWord.difficulty":"hard"}`,
+      method: 'get',
+      headers: {
+        "accept" : "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    const data = await response.data;
+
+    console.log('getHardWords ', data);
+
+    return data;
+  } catch {
+    return 'error';
+  }
+};
+
+export const getInfoAboutAllPages = async (group) => {
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+
+  try {
+    const arrPromises = [];
+    for (let page = 0; page < 30; page++) {
+      arrPromises.push(
+        axios({
+          url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/aggregatedWords?wordsPerPage=3600&filter={"$and":[{"page":"${page}","group":"${group}","$or":[{"userWord.difficulty":"hard"},{"userWord.difficulty":"learned"}]}]}`,
+          method: 'get',
+          headers: {
+            "accept" : "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+        })
+      );
+    }
+    const response = await Promise.allSettled(arrPromises);
+
+    console.log('getInfoAboutAllPages response ', response);
+
+    const data = response.map((res) => {
+      if (res.status === 'fulfilled') {
+        return res.value.data[0].paginatedResults.length;
+      } else {
+        if (res.reason.response.status === 401) {
+          throw new Error();
+        }
+        return 0;
+      }
+    });
+
+    console.log('getInfoAboutAllPages ', data);
+
+    return data;
+  } catch {
+    return 'error';
+  }
+};
+
+const updateWordData = async (wordId, wordData) => {
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+
+  try {
+    const response = await axios({
+      url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/words/${wordId}`,
+      method: 'put',
+      headers: {
+        "accept" : "application/json",
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      data: wordData
+    });
+
+    const data = await response.data;
+
+    return data;
+  } catch {
+    return 'error';
+  }
+};
+
 //=============   API   ========================
 export const putGeneralStat = async (statObj) => {
   try {
@@ -146,4 +275,70 @@ export const getSafeGeneralStat = async (currDate, sendToServer = false) => {
   return stat;
 };
 
+export const getSafeInfoAboutWords = async (words) => {
+  try {
+    let wordsInfo = await getInfoAboutWords(words);
 
+    if (wordsInfo !== 'error') {
+      return wordsInfo;
+    }
+
+    await getNewToken();
+
+    wordsInfo = await getInfoAboutWords(words);
+    return wordsInfo;
+  } catch {
+    return 'error';
+  }
+};
+
+export const getSafeHardWords = async () => {
+  try {
+    let hardWords = await getHardWords();
+
+    if (hardWords !== 'error') {
+      return hardWords;
+    }
+
+    await getNewToken();
+
+    hardWords = await getHardWords();
+    return hardWords;
+  } catch {
+    return 'error';
+  }
+};
+
+export const getSafeInfoAboutAllPages = async (group) => {
+  try {
+    let infoPages = await getInfoAboutAllPages(group);
+
+    if (infoPages !== 'error') {
+      return infoPages;
+    }
+
+    await getNewToken();
+
+    infoPages = await getInfoAboutAllPages(group);
+    return infoPages;
+  } catch {
+    return 'error';
+  }
+};
+
+export const updateSafeWordData = async (wordId, wordData) => {
+  try {
+    let answ = await updateWordData(wordId, wordData);
+
+    if (answ !== 'error') {
+      return answ;
+    }
+
+    await getNewToken();
+
+    answ = await updateWordData(wordId, wordData);
+    return answ;
+  } catch {
+    return 'error';
+  }
+};
