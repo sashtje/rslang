@@ -14,7 +14,7 @@ const SprintGame = () => {
   const [pointerClass, setPointerClass] = useState('');
   const [roundEnded, setRoundEnded] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
-  const [seconds, setSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(10);
   const [pages, setPage] = useState({currentPage: Math.floor(Math.random() * 30), pagesVisited: []})
 
   const [wins, setWins] = useState([]);
