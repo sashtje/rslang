@@ -97,7 +97,7 @@ const Words = () => {
         return;
       }
       setWordsUser(userWords as any[]);
-      const pagWords = await getSafeInfoAboutAllPages(group);
+      const pagWords = await getSafeInfoAboutAllPages(getNumberGroup());
       if (pagWords === "error") {
         console.log('pagWords');
 
@@ -111,7 +111,7 @@ const Words = () => {
 
   const fetchHardWords = async () => {
     //download all info about words
-    const words = await getSafeHardWords();
+    let words = await getSafeHardWords();
     if (words === "error") {
       setIsAuth(false);
       localStorage.clear();
@@ -120,10 +120,16 @@ const Words = () => {
 
     //сортировать слова
     words.sort((a, b) => {
-      if (a.word >= b.word) {
+      if (a.word.toLowerCase() >= b.word.toLowerCase()) {
         return 1;
       }
-      return 0;
+      return -1;
+    });
+
+    words = words.map((word) => {
+      word.id = word._id;
+      delete word._id;
+      return word;
     });
 
     setWords(words);
@@ -147,7 +153,7 @@ const Words = () => {
       return;
     }
 
-    setStat(st.optional);
+    setStat(st);
   };
 
   useEffect(() => {
@@ -179,7 +185,9 @@ const Words = () => {
   }, [words]);
 
   useEffect(() => {
-    changeWordsData(group, page);
+    if (group) {
+      changeWordsData(group, page);
+    }
   }, [group, page]);
 
   return (
@@ -210,7 +218,7 @@ const Words = () => {
             }
             
 
-            <Pagination page={page} group={group} setPage={setPage} pagInfo={wordsPagPerPage} />
+            <Pagination page={page} group={group} setPage={setPage} wordsPagPerPage={wordsPagPerPage} />
           </div>
         </div>
       </main>

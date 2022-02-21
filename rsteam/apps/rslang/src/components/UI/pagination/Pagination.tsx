@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/index';
 
-const Pagination = ({page, group, setPage, pagInfo}) => {
+const Pagination = ({page, group, setPage, wordsPagPerPage}) => {
   let basePath = `/textbook/${group}/`;
 
   const {isAuth, setIsAuth} = useContext(AuthContext);
@@ -11,8 +11,8 @@ const Pagination = ({page, group, setPage, pagInfo}) => {
     basePath = `/textbook/${group}/`;
   }, [group]);
 
-  const returnClassLearned = (isAuth, pagInfo, pageNum, classRes) => {
-    if (isAuth && pagInfo[pageNum - 1] === 20) {
+  const returnClassLearned = (isAuth, wordsPagPerPage, pageNum, classRes) => {
+    if (isAuth && wordsPagPerPage[pageNum - 1] === 20) {
       return `${classRes} pagination__link_is_learned`;
     }
     return classRes;
@@ -36,41 +36,41 @@ const Pagination = ({page, group, setPage, pagInfo}) => {
             </Link>
              {/* pagination__link_is_learned */}
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 1, page === 1 ?
+              className={returnClassLearned(isAuth, wordsPagPerPage, 1, page === 1 ?
                 'pagination__link pagination__link_is_active'
               : 'pagination__link')}
               to={basePath + 1}
               onClick={() => {setPage(1)}}
             >1</Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 2, page === 2 ?
+              className={returnClassLearned(isAuth, wordsPagPerPage, 2, page === 2 ?
                 'pagination__link pagination__link_is_active'
               : 'pagination__link')}
               to={basePath + 2}
               onClick={() => {setPage(2)}}
             >2</Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 3, page === 3 ?
+              className={returnClassLearned(isAuth, wordsPagPerPage, 3, page === 3 ?
                 'pagination__link pagination__link_is_active'
               : 'pagination__link')}
               to={basePath + 3}
               onClick={() => {setPage(3)}}
             >3</Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 4, page === 4 ?
+              className={returnClassLearned(isAuth, wordsPagPerPage, 4, page === 4 ?
                 'pagination__link pagination__link_is_active'
               : 'pagination__link')}
               to={basePath + 4}
               onClick={() => {setPage(4)}}
             >4</Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 5, 'pagination__link')}
+              className={returnClassLearned(isAuth, wordsPagPerPage, 5, 'pagination__link')}
               to={basePath + 5}
               onClick={() => {setPage(5)}}
             >5</Link>
             <div className='pagination__gap'>...</div>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 30, 'pagination__link')}
+              className={returnClassLearned(isAuth, wordsPagPerPage, 30, 'pagination__link')}
               to={basePath + 30}
               onClick={() => {setPage(30)}}
             >30</Link>
@@ -97,29 +97,29 @@ const Pagination = ({page, group, setPage, pagInfo}) => {
               </svg>
             </Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 1, 'pagination__link')}
+              className={returnClassLearned(isAuth, wordsPagPerPage, 1, 'pagination__link')}
               to={basePath + 1}
               onClick={() => {setPage(1)}}
             >1</Link>
             <div className='pagination__gap'>...</div>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, page - 1, 'pagination__link')}
+              className={returnClassLearned(isAuth, wordsPagPerPage, page - 1, 'pagination__link')}
               to={basePath + (page - 1)}
               onClick={() => {setPage(page - 1)}}
             >{page - 1}</Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, page, 'pagination__link pagination__link_is_active')}
+              className={returnClassLearned(isAuth, wordsPagPerPage, page, 'pagination__link pagination__link_is_active')}
               to={basePath + page}
               onClick={() => {setPage(page)}}
             >{page}</Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, page + 1, 'pagination__link')}
+              className={returnClassLearned(isAuth, wordsPagPerPage, page + 1, 'pagination__link')}
               to={basePath + (page + 1)}
               onClick={() => {setPage(page + 1)}}
             >{page + 1}</Link>
             <div className='pagination__gap'>...</div>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 30, 'pagination__link')}
+              className={returnClassLearned(isAuth, wordsPagPerPage, 30, 'pagination__link')}
               to={basePath + 30}
               onClick={() => {setPage(30)}}
             >30</Link>
@@ -145,39 +145,39 @@ const Pagination = ({page, group, setPage, pagInfo}) => {
               </svg>
             </Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 1, 'pagination__link')}
+              className={returnClassLearned(isAuth, wordsPagPerPage, 1, 'pagination__link')}
               to={basePath + 1}
               onClick={() => {setPage(1)}}
             >1</Link>
             <div className='pagination__gap'>...</div>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 26, 'pagination__link')}
+              className={returnClassLearned(isAuth, wordsPagPerPage, 26, 'pagination__link')}
               to={basePath + 26}
               onClick={() => {setPage(26)}}
             >26</Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 27, page === 27 ?
+              className={returnClassLearned(isAuth, wordsPagPerPage, 27, page === 27 ?
                 'pagination__link pagination__link_is_active'
               : 'pagination__link')}
               to={basePath + 27}
               onClick={() => {setPage(27)}}
             >27</Link>
             <Link
-              className={returnClassLearned(isAuth,pagInfo, 28, page === 28 ?
+              className={returnClassLearned(isAuth,wordsPagPerPage, 28, page === 28 ?
                 'pagination__link pagination__link_is_active'
               : 'pagination__link')}
               to={basePath + 28}
               onClick={() => {setPage(28)}}
             >28</Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 29, page === 29 ?
+              className={returnClassLearned(isAuth, wordsPagPerPage, 29, page === 29 ?
                 'pagination__link pagination__link_is_active'
               : 'pagination__link')}
               to={basePath + 29}
               onClick={() => {setPage(29)}}
             >29</Link>
             <Link
-              className={returnClassLearned(isAuth, pagInfo, 30, page === 30 ?
+              className={returnClassLearned(isAuth, wordsPagPerPage, 30, page === 30 ?
                 'pagination__link pagination__link_is_active'
               : 'pagination__link')}
               to={basePath + 30}

@@ -143,7 +143,7 @@ export const getHardWords = async () => {
       }
     });
 
-    const data = await response.data;
+    const data = await response.data[0].paginatedResults;
 
     console.log('getHardWords ', data);
 
@@ -162,7 +162,7 @@ export const getInfoAboutAllPages = async (group) => {
     for (let page = 0; page < 30; page++) {
       arrPromises.push(
         axios({
-          url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/aggregatedWords?wordsPerPage=3600&filter={"$and":[{"page":"${page}","group":"${group}","$or":[{"userWord.difficulty":"hard"},{"userWord.difficulty":"learned"}]}]}`,
+          url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/aggregatedWords?wordsPerPage=3600&filter={"$and":[{"page":${page}},{"group":${group}},{"$or":[{"userWord.difficulty":"hard"},{"userWord.difficulty":"learned"}]}]}`,
           method: 'get',
           headers: {
             "accept" : "application/json",
@@ -197,11 +197,39 @@ export const getInfoAboutAllPages = async (group) => {
 const updateWordData = async (wordId, wordData) => {
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
+  delete wordData.id;
+  delete wordData.wordId;
+
+  console.log(wordData);
 
   try {
     const response = await axios({
       url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/words/${wordId}`,
       method: 'put',
+      headers: {
+        "accept" : "application/json",
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      data: wordData
+    });
+
+    const data = await response.data;
+
+    return data;
+  } catch {
+    return 'error';
+  }
+};
+
+const createWordData = async (wordId, wordData) => {
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+
+  try {
+    const response = await axios({
+      url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/words/${wordId}`,
+      method: 'post',
       headers: {
         "accept" : "application/json",
         "Authorization": `Bearer ${token}`,
@@ -337,6 +365,23 @@ export const updateSafeWordData = async (wordId, wordData) => {
     await getNewToken();
 
     answ = await updateWordData(wordId, wordData);
+    return answ;
+  } catch {
+    return 'error';
+  }
+};
+
+export const createSafeWordData = async (wordId, wordData) => {
+  try {
+    let answ = await createWordData(wordId, wordData);
+
+    if (answ !== 'error') {
+      return answ;
+    }
+
+    await getNewToken();
+
+    answ = await createWordData(wordId, wordData);
     return answ;
   } catch {
     return 'error';

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { AuthContext } from '../context/index';
-import {updateSafeWordData, putGeneralStat} from '../fetch/fetch';
+import {updateSafeWordData, putGeneralStat, createSafeWordData} from '../fetch/fetch';
 import {getDefaultGames, getDefaultAll} from '../fetch/stats';
 
 const WordCard = (
@@ -97,9 +97,9 @@ const WordCard = (
       return '';
     }
     if (userWord?.difficulty === "hard") {
-      return 'word-card_is_hard';
+      return ' word-card_is_hard';
     }
-    return 'word-card_is_learned';
+    return ' word-card_is_learned';
   };
 
   const returnTextHardBtn = (wordsUser) => {
@@ -121,6 +121,7 @@ const WordCard = (
   };
 
   const returnUpToDateStat = (date) => {
+    console.log(stat);
     if (stat.optional.stats.date !== date) {
       stat.optional.stats.date = date;
       stat.optional.stats.sprint = getDefaultGames();
@@ -141,13 +142,29 @@ const WordCard = (
         date, lastValue
       ]);
     }
+
+    return stat;
   };
 
-  const incLearnedWordsStat = () => {
+  const incLearnedWordsStat = (stat) => {
     stat.optional.stats.all.numberLearnedWords++;
     const arrLWords = stat.optional.stats.graphLearnedWords;
     arrLWords[arrLWords.length - 1][1]++;
   };
+
+  const decLearnedWordsStat = (stat) => {
+    if (stat.optional.stats.all.numberLearnedWords > 0) {
+      stat.optional.stats.all.numberLearnedWords--;
+    }
+    const arrLWords = stat.optional.stats.graphLearnedWords;
+    arrLWords[arrLWords.length - 1][1]--;
+  };
+
+  const incNewWordsStat = (stat) => {
+    stat.optional.stats.all.numberNewWords++;
+    const arrLWords = stat.optional.stats.graphNewWords;
+    arrLWords[arrLWords.length - 1][1]++;
+  }
 
   const clickBtnHard = async () => {
     setIsBlockBtns(true);
@@ -156,13 +173,14 @@ const WordCard = (
     const userWord = wordsUser[ind];
 
     if (group === 'hard') {
+      //======================================
       userWord.difficulty = 'easy';
       userWord.optional.stats.answers = [];
 
       const answer = await updateSafeWordData(word.id, userWord);
 
       if (answer === 'error') {
-        isAuth(false);
+        setIsAuth(false);
         localStorage.clear();
         return;
       }
@@ -171,11 +189,85 @@ const WordCard = (
       setWordsUser(wordsUser.slice(0, ind).concat(wordsUser.slice(ind + 1)));
 
     } else if (group !== 'hard' && userWord?.difficulty === 'hard') {
+      //======================================
+      userWord.difficulty = 'easy';
+      userWord.optional.stats.answers = [];
+
+      const answer = await updateSafeWordData(word.id, userWord);
+
+      if (answer === 'error') {
+        setIsAuth(false);
+        localStorage.clear();
+        return;
+      }
+
+      setWordsUser(wordsUser);
+      setLastAnsw([]);
+
+      const newArr = wordsPagPerPage.slice(0);
+      newArr[page - 1]--;
+      console.log('Pagination ', newArr);
+      setWordsPagPerPage(newArr);
 
     } else if (userWord?.difficulty === 'learned') {
+      //======================================
+      userWord.difficulty = 'hard';
+      userWord.optional.stats.answers = [];
 
-    } else {
+      const answer = await updateSafeWordData(word.id, userWord);
 
+      if (answer === 'error') {
+        setIsAuth(false);
+        localStorage.clear();
+        return;
+      }
+
+      setWordsUser(wordsUser);
+      setLastAnsw([]);
+
+      let newStat = returnUpToDateStat(date);
+      decLearnedWordsStat(newStat);
+      putGeneralStat(newStat);
+      setStat(newStat);
+
+    } else { //easy
+      //======================================
+      userWord.difficulty = 'hard';
+      const isNewWord = userWord.optional.stats ? false : true;
+
+      let answer;
+      if (isNewWord) {
+        userWord.optional = {
+          stats: {
+            rightAnswers: 0,
+            wrongAnswers: 0,
+            answers: []
+          }
+        };
+        answer = await createSafeWordData(word.id, userWord);
+      } else {
+        answer = await updateSafeWordData(word.id, userWord);
+      }
+
+      if (answer === 'error') {
+        setIsAuth(false);
+        localStorage.clear();
+        return;
+      }
+
+      setWordsUser(wordsUser);
+
+      const newArr = wordsPagPerPage.slice(0);
+      newArr[page - 1]++;
+      console.log('Pagination ', newArr);
+      setWordsPagPerPage(newArr);
+
+      if (isNewWord) {
+        let newStat = returnUpToDateStat(date);
+        incNewWordsStat(newStat);
+        putGeneralStat(newStat);
+        setStat(newStat);
+      }
     }
 
 
@@ -189,12 +281,13 @@ const WordCard = (
     const userWord = wordsUser[ind];
 
     if (group === 'hard') {
+      //======================================
       userWord.difficulty = 'learned';
 
       const answer = await updateSafeWordData(word.id, userWord);
 
       if (answer === 'error') {
-        isAuth(false);
+        setIsAuth(false);
         localStorage.clear();
         return;
       }
@@ -202,17 +295,95 @@ const WordCard = (
       setWords(words.slice(0, ind).concat(words.slice(ind + 1)));
       setWordsUser(wordsUser.slice(0, ind).concat(wordsUser.slice(ind + 1)));
 
-      returnUpToDateStat(date);
-      incLearnedWordsStat();
-      putGeneralStat(stat);
-      setStat(stat);
+      let newStat = returnUpToDateStat(date);
+      incLearnedWordsStat(newStat);
+      putGeneralStat(newStat);
+      setStat(newStat);
 
     } else if (group !== 'hard' && userWord?.difficulty === 'hard') {
+      //======================================
+      userWord.difficulty = 'learned';
+
+      const answer = await updateSafeWordData(word.id, userWord);
+
+      if (answer === 'error') {
+        setIsAuth(false);
+        localStorage.clear();
+        return;
+      }
+
+      setWordsUser(wordsUser);
+
+      let newStat = returnUpToDateStat(date);
+      incLearnedWordsStat(newStat);
+      putGeneralStat(newStat);
+      setStat(newStat);
 
     } else if (userWord?.difficulty === 'learned') {
+      //======================================
+      userWord.difficulty = 'easy';
+      userWord.optional.stats.answers = [];
 
-    } else {
-      
+      const answer = await updateSafeWordData(word.id, userWord);
+
+      if (answer === 'error') {
+        setIsAuth(false);
+        localStorage.clear();
+        return;
+      }
+
+      setWordsUser(wordsUser);
+      setLastAnsw([]);
+
+      const newArr = wordsPagPerPage.slice(0);
+      newArr[page - 1]--;
+      console.log('Pagination ', newArr);
+      setWordsPagPerPage(newArr);
+
+      let newStat = returnUpToDateStat(date);
+      decLearnedWordsStat(newStat);
+      putGeneralStat(newStat);
+      setStat(newStat);
+
+    } else { //easy
+      //======================================
+      userWord.difficulty = 'learned';
+      const isNewWord = userWord.optional.stats ? false : true;
+
+      let answer;
+      if (isNewWord) {
+        userWord.optional = {
+          stats: {
+            rightAnswers: 0,
+            wrongAnswers: 0,
+            answers: []
+          }
+        };
+        answer = await createSafeWordData(word.id, userWord);
+      } else {
+        answer = await updateSafeWordData(word.id, userWord);
+      }
+
+      if (answer === 'error') {
+        setIsAuth(false);
+        localStorage.clear();
+        return;
+      }
+
+      setWordsUser(wordsUser);
+
+      const newArr = wordsPagPerPage.slice(0);
+      newArr[page - 1]++;
+      console.log('Pagination ', newArr);
+      setWordsPagPerPage(newArr);
+
+      if (isNewWord) {
+        let newStat = returnUpToDateStat(date);
+        incNewWordsStat(newStat);
+        incLearnedWordsStat(newStat);
+        putGeneralStat(newStat);
+        setStat(newStat);
+      }
     }
 
     setIsBlockBtns(false);
