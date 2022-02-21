@@ -27,7 +27,7 @@ const Sprint = ({ lvlSelected = 1 }) => {
       <div className="sprint__choosePage">
         <h1 className="textbook__title">Спринт</h1>
         <p className="sprint__content">
-          Спринт - это тренировка на скорость. Попробуй угадать как можно больше слов за 30 секунд.
+          Спринт - это тренировка на скорость. Попробуй угадать как можно больше слов за 60 секунд.
         </p>
         <div className="sprint__chooseLvl">
           <label className="sprint-select-label" htmlFor="sprint-select">

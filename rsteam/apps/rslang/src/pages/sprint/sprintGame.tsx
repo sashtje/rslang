@@ -7,7 +7,7 @@ const SprintGame = () => {
   let { chosenLvl } = useParams();
   let [totalScore, setTotalScore] = useState(0);
   let [questionAmount, setQuestionId] = useState(0);
-  const [qOne, setqOne] = useState({eng:'', ru:''});
+  const [qOne, setqOne] = useState({eng: '', ru: ''});
   const [qTwo, setqTwo] = useState('');
   const [currentQuestion, setCurrentQuestion] = useState({});
 
