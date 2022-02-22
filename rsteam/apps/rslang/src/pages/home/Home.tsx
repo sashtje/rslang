@@ -35,7 +35,7 @@ const Home = () => {
             <div className='home-features__cards'>
               <div className='home-card'>
                 <div className='home-card__icon'>
-                  <img src="./../../assets/svg/home-page/textbook.svg" alt="" />
+                  <img src="../../assets/svg/home-page/textbook.svg" alt="" />
                 </div>
                 <h3 className='home-card__title'>Учебник</h3>
                 <div className='home-card__description'>Наша коллекция содержит 3600 слов для изучения, которые разбиты на разделы по уровню твоей подготовки с удобной навигацией</div>
@@ -43,7 +43,7 @@ const Home = () => {
 
               <div className='home-card'>
                 <div className='home-card__icon'>
-                  <img src="./../../assets/svg/home-page/dictionary.svg" alt="" />
+                  <img src="../../assets/svg/home-page/dictionary.svg" alt="" />
                 </div>
                 <h3 className='home-card__title'>Словарь</h3>
                 <div className='home-card__description'>Можно помечать сложные слова, чтобы уделить им больше внимания при изучении. А также можно отмечать уже изученные слова, чтобы больше к ним не возвращаться.</div>
@@ -51,7 +51,7 @@ const Home = () => {
 
               <div className='home-card'>
                 <div className='home-card__icon'>
-                  <img src="./../../assets/svg/home-page/statistics.svg" alt="" />
+                  <img src="../../assets/svg/home-page/statistics.svg" alt="" />
                 </div>
                 <h3 className='home-card__title'>Статистика</h3>
                 <div className='home-card__description'>Удобная статистика будет показывать твой ежедневный прогресс, и поможет поддерживать твою мотивацию продолжать учёбу.</div>
@@ -59,7 +59,7 @@ const Home = () => {
 
               <div className='home-card'>
                 <div className='home-card__icon'>
-                  <img src="./../../assets/svg/home-page/games.svg" alt="" />
+                  <img src="../../assets/svg/home-page/games.svg" alt="" />
                 </div>
                 <h3 className='home-card__title'>Игры</h3>
                 <div className='home-card__description'>Учись играючи. Увлекательные игры станут отличным помощником для закрепления слов. Проведи время приятно и полезно за изучением английского языка.</div>
