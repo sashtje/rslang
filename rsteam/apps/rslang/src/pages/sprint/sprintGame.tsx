@@ -69,7 +69,7 @@ const SprintGame = () => {
       )
     })
 
-    const title = winItems.length > loseItems.length ? 'Хороший результат' : 'Результат плохой'
+    const title = winItems.length > loseItems.length ? 'Молодец' : 'Попробуйте ещё раз'
 
     return (
       <div className="sprint__wrapper">

@@ -2,15 +2,6 @@ import React, { useState, useEffect } from 'react';
 import SprintGame from './sprintGame';
 import { Link } from 'react-router-dom';
 
-// const selectOptions = [
-//   {value: 1},
-//   {value: 2},
-//   {value: 3},
-//   {value: 4},
-//   {value: 5},
-//   {value: 6}
-// ];
-
 const Sprint = ({ lvlSelected = 1 }) => {
   const [selectedOption, setSelectedOption] = useState(lvlSelected);
 
