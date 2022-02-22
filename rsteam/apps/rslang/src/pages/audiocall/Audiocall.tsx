@@ -17,7 +17,7 @@ const Audiocall = ({ lvlSelected = 1 }) => {
       <div className="sprint__choosePage">
         <h1 className="textbook__title">Аудиовызов</h1>
         <p className="sprint__content">
-          Аудиовызов - это ...
+          Аудиовызов - это тренировка на слух. Попробуй правильно распознать все слова и прокачай своё аудирование.
         </p>
         <div className="sprint__chooseLvl">
           <label className="sprint-select-label" htmlFor="audioGame-select">
