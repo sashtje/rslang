@@ -20,7 +20,7 @@ function App() {
       isAuth,
       setIsAuth
     }}>
-      <BrowserRouter>
+      <BrowserRouter basename='/rslang'>
         <Navbar />
         <AppRouter />
       </BrowserRouter>
