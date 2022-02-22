@@ -7,13 +7,18 @@
     justify-content: center;
     align-items: center;
     background-color: #F4EFEA;
+
+    .btn {
+      text-align: center;
+    }
   }
 
   &__choosePage {
     display: flex;
     flex-direction: column;
-    width: 500px;
+    max-width: 540px;
     align-items: center;
+    padding: 20px;
   }
 
   &__content {
@@ -26,8 +31,9 @@
   &__chooseLvl {
     position: relative;
     display: flex;
-    justify-content: space-between;
-    width: 335px;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
   }
 
   &-select {
@@ -38,11 +44,16 @@
 
     &-label {
       position: absolute;
+      left: 0;
       top: -30px;
       color: #414141;
       font-weight: 500;
       font-size: 14px;
       user-select: none;
+
+      @media screen and (max-width: 344px) {
+        left: auto;
+      }
     }
   }
 }
