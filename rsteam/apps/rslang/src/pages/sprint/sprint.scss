@@ -168,6 +168,7 @@
 
   &__mistake_block {
     margin-bottom: 40px;
+    align-self: flex-start;
 
     span {
       display: inline-block;
@@ -185,7 +186,7 @@
   }
 
   &__correct_block {
-
+    align-self: flex-start;
     span {
       display: inline-block;
       background-color: #63C69F;

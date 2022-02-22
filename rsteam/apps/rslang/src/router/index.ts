@@ -8,7 +8,7 @@ import Login from '../pages/login/Login';
 import SignUp from '../pages/signup/SingUp';
 import Words from '../pages/textbook/Words';
 import SprintGame from '../pages/sprint/sprintGame';
-import AudiocallGame from "../pages/audiocall/AudiocallGame";
+import AudiocallGame from '../pages/audiocall/AudiocallGame';
 
 const MAX_PAGES = 30;
 
