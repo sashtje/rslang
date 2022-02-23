@@ -10,6 +10,8 @@ const SprintGame = () => {
 
   const chosenLvl = gameSet.group + 1;
   let [totalScore, setTotalScore] = useState(0);
+  let [baseScore, setBaseScore] = useState(10);
+  let [numSeqRA, setNumSeqRA] = useState(0);
   let [questionAmount, setQuestionId] = useState(0);
   const [qOne, setqOne] = useState({eng: '', ru: ''});
   const [qTwo, setqTwo] = useState('');
@@ -26,6 +28,10 @@ const SprintGame = () => {
   const [wins, setWins] = useState([]);
   const [loses, setLoses] = useState([]);
   const [allData, setAllData] = useState([]);
+
+  const [audioRight] = useState(new Audio('../../assets/sound/right.mp3'));
+  const [audioWrong] = useState(new Audio('../../assets/sound/wrong.mp3'));
+  const [audioRound] = useState(new Audio('../../assets/sound/round.mp3'));
 
   function choosePage() {
     setQuestionId(0)
@@ -186,7 +192,23 @@ const SprintGame = () => {
   }
 
   function roundWin() {
-    setTotalScore(totalScore += 10);
+    setNumSeqRA(++numSeqRA);
+    if (numSeqRA % 4 === 0) {
+      if (baseScore < 80) {
+        setBaseScore(baseScore *= 2);
+      }
+      audioWrong.pause();
+      audioRight.pause();
+      audioRound.currentTime = 0;
+      audioRound.play();
+    } else {
+      audioWrong.pause();
+      audioRound.pause();
+      audioRight.currentTime = 0;
+      audioRight.play();
+    }
+
+    setTotalScore(totalScore += baseScore);
     setQuestionId(questionAmount += 1);
     setWins([...wins, currentQuestion]);
     setPointerClass('correct');
@@ -195,6 +217,12 @@ const SprintGame = () => {
   }
 
   function roundLose() {
+    setBaseScore(10);
+    setNumSeqRA(0);
+    audioRight.pause();
+    audioRound.pause();
+    audioWrong.currentTime = 0;
+    audioWrong.play();
     setQuestionId(questionAmount += 1);
     setLoses([...loses, currentQuestion]);
     setPointerClass('wrong');
