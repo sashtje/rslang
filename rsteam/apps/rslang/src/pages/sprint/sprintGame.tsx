@@ -13,8 +13,8 @@ const SprintGame = () => {
   let [baseScore, setBaseScore] = useState(10);
   let [numSeqRA, setNumSeqRA] = useState(0);
   let [questionAmount, setQuestionId] = useState(0);
-  const [qOne, setqOne] = useState({eng: '', ru: ''});
-  const [qTwo, setqTwo] = useState('');
+  let [qOne, setqOne] = useState({eng: '', ru: ''});
+  let [qTwo, setqTwo] = useState('');
   const [currentQuestion, setCurrentQuestion] = useState({});
 
   const [pointerClass, setPointerClass] = useState('');
@@ -52,6 +52,28 @@ const SprintGame = () => {
   useEffect(() => {
     startGame();
     // return clearInterval(myTimer)
+  }, []);
+
+  useEffect(() => {
+    const onKeypress = (e) => {
+      if (gameEnded) return;
+
+      if (e.code === 'ArrowLeft') {
+        checkAnswer(false);
+        return;
+      }
+      
+      if (e.code === 'ArrowRight') {
+        checkAnswer(true);
+        return;
+      }
+    };
+
+    document.addEventListener('keydown', onKeypress);
+
+    return () => {
+      document.removeEventListener('keydown', onKeypress);
+    };
   }, []);
 
   useEffect(() => {
@@ -137,11 +159,13 @@ const SprintGame = () => {
       });
       const data = await response.data;
       setAllData([...allData, data[questionAmount]])
-      setqOne({eng: data[questionAmount].word, ru: data[questionAmount].wordTranslate})
+      setqOne({eng: data[questionAmount].word, ru: data[questionAmount].wordTranslate});
+      qOne = {eng: data[questionAmount].word, ru: data[questionAmount].wordTranslate};
 
       const oneOrTwo = Math.floor(Math.random() * 2);
-      const answ = oneOrTwo == 0 ? data[questionAmount].wordTranslate : data[Math.floor(Math.random() * 20)].wordTranslate
-      setqTwo(answ)
+      const answ = oneOrTwo == 0 ? data[questionAmount].wordTranslate : data[Math.floor(Math.random() * 20)].wordTranslate;
+      setqTwo(answ);
+      qTwo = answ;
 
       setCurrentQuestion({
         id: data[questionAmount].id,
@@ -192,7 +216,7 @@ const SprintGame = () => {
   }
 
   function roundWin() {
-    setNumSeqRA(++numSeqRA);
+    setNumSeqRA(numSeqRA += 1);
     if (numSeqRA % 4 === 0) {
       if (baseScore < 80) {
         setBaseScore(baseScore *= 2);
@@ -217,8 +241,8 @@ const SprintGame = () => {
   }
 
   function roundLose() {
-    setBaseScore(10);
-    setNumSeqRA(0);
+    setBaseScore(baseScore = 10);
+    setNumSeqRA(numSeqRA = 0);
     audioRight.pause();
     audioRound.pause();
     audioWrong.currentTime = 0;
