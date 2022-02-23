@@ -204,7 +204,6 @@ const SprintGame = () => {
 
 
   function startGame() {
-    // startTimer()
     newRound()
   }
 
