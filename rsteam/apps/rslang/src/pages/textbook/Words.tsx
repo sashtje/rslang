@@ -192,8 +192,7 @@ const Words = () => {
 
   return (
     <div className='container-wrapper'>
-      <main className={`words main words_is_${group}${wordsPagPerPage[page - 1] === 20 ? ' words_is_learned' : ''}`}>
-         {/* words_is_learned */}
+      <main className={`words main words_is_${group}${(wordsPagPerPage[page - 1] === 20) && !isLoaded ? ' words_is_learned' : ''}`}>
         <div className='container-inner'>
           <div className='words__container'>
             <div className='words__games'>
@@ -218,7 +217,7 @@ const Words = () => {
             }
             
 
-            <Pagination page={page} group={group} setPage={setPage} wordsPagPerPage={wordsPagPerPage} />
+            <Pagination page={page} group={group} setPage={setPage} wordsPagPerPage={wordsPagPerPage} isLoaded={isLoaded}/>
           </div>
         </div>
       </main>
