@@ -14,7 +14,7 @@ const SprintGame = () => {
   const [pointerClass, setPointerClass] = useState('');
   const [roundEnded, setRoundEnded] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
-  const [seconds, setSeconds] = useState(10);
+  const [seconds, setSeconds] = useState(60);
   const [pages, setPage] = useState({currentPage: Math.floor(Math.random() * 30), pagesVisited: []})
 
   const [wins, setWins] = useState([]);
@@ -33,22 +33,22 @@ const SprintGame = () => {
   }
 
   useEffect(() => {
-    choosePage()
+    // choosePage()
     // return clearInterval(myTimer)
   }, []);
 
   useEffect(() => {
-    startGame();
+    // startGame();
     // return clearInterval(myTimer)
   }, []);
 
   useEffect(() => {
-    const myTimer = setTimeout(countDown, 1000);
+    /* const myTimer = setTimeout(countDown, 1000);
     if (seconds < 0) {
       clearTimeout(myTimer)
       setGameEnded(true)
     }
-    return () => clearTimeout(myTimer)
+    return () => clearTimeout(myTimer) */
   }, [seconds])
 
 
@@ -95,13 +95,12 @@ const SprintGame = () => {
 
   return (
     <div className="sprint__wrapper">
+      <div className="sprintGame-score">{totalScore}</div>
       <div className="sprintGame__container">
         <div className="sprintGame__topLine">
           <div className="sprintGame-timer">{seconds}</div>
 
           <div className={`sprintGame-pointer ${pointerClass}`}></div>
-
-          <div className="sprintGame-score">{totalScore}</div>
         </div>
 
         <div className="sprintGame__question">
