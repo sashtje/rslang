@@ -116,8 +116,8 @@ const SprintGame = () => {
     </div>
   );
 
-   async function newRound() {
-     setRoundEnded(false)
+  async function newRound() {
+    setRoundEnded(false)
     try {
       const response = await axios({
         url: `https://react-learnwords-rs.herokuapp.com/words?group=${chosenLvl}&page=${pages.currentPage}`,

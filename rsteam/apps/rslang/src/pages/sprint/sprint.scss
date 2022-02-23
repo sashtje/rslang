@@ -63,10 +63,19 @@
 
   &__container {
     background-color: #ffffff;
+    border: 2px solid transparent;
     padding: 20px 30px 50px 30px;
     max-width: 600px;
     width: 100%;
     border-radius: 20px;
+
+    &_is_right-answer {
+      border-color: #04e060;
+    }
+
+    &_is_wrong-answer {
+      border-color: #ff0f03;
+    }
   }
 
   &__topLine {
