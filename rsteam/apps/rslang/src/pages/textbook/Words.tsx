@@ -10,9 +10,12 @@ import { AuthContext } from '../../context/index';
 import { getSafeInfoAboutWords, getSafeHardWords, getSafeInfoAboutAllPages } from '../../fetch/fetch';
 import { getDefaultStat } from '../../fetch/stats';
 import {getSafeGeneralStat} from '../../fetch/fetch';
+import { GameContext } from '../../context/index';
 
 const Words = () => {
   const {isAuth, setIsAuth} = useContext(AuthContext);
+  const {gameSet, setGameSet} = useContext(GameContext);
+
   const [group, setGroup] = useState(null);
   const [page, setPage] = useState(null);
 
@@ -65,6 +68,10 @@ const Words = () => {
 
       case 'c2':
         numberGroup = '5';
+        break;
+
+      case 'hard':
+        numberGroup = '6';
         break;
     }
 
@@ -190,14 +197,30 @@ const Words = () => {
     }
   }, [group, page]);
 
+  const onClickGame = () => {
+    const numGroup = +getNumberGroup();
+    let numPage;
+    if (numGroup === 6) {
+      numPage = null;
+    } else numPage = page - 1;
+
+    const gameFromTxb = {
+      isTxb: true,
+      group: numGroup,
+      page: numPage
+    };
+
+    setGameSet(gameFromTxb);
+  };
+
   return (
     <div className='container-wrapper'>
       <main className={`words main words_is_${group}${(wordsPagPerPage[page - 1] === 20) && !isLoaded ? ' words_is_learned' : ''}`}>
         <div className='container-inner'>
           <div className='words__container'>
             <div className='words__games'>
-              <Link className='words__game-link words__game-link_is_audiocall' to='/audiocall'>Аудиовызов</Link>
-              <Link className='words__game-link words__game-link_is_savannah' to='/sprint'>Спринт</Link>
+              <Link className='words__game-link words__game-link_is_audiocall' to='/audiocall' onClick={onClickGame}>Аудиовызов</Link>
+              <Link className='words__game-link words__game-link_is_savannah' to='/sprint' onClick={onClickGame}>Спринт</Link>
             </div>
 
             <Groups setPage={setPage} setGroup={setGroup} />

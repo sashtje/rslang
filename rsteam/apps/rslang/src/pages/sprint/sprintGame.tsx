@@ -12,6 +12,8 @@ const SprintGame = () => {
   const [currentQuestion, setCurrentQuestion] = useState({});
 
   const [pointerClass, setPointerClass] = useState('');
+  const [borderClass, setBorderClass] = useState('');
+
   const [roundEnded, setRoundEnded] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
   const [seconds, setSeconds] = useState(60);
@@ -173,17 +175,26 @@ const SprintGame = () => {
     newRound()
   }
 
+  function removeBorder() {
+    setTimeout(() => {
+      setBorderClass('');
+    }, 1000);
+  }
+
   function roundWin() {
     setTotalScore(totalScore += 10);
-    setQuestionId(questionAmount += 1)
-    setWins([...wins, currentQuestion])
-    setPointerClass('correct')
+    setQuestionId(questionAmount += 1);
+    setWins([...wins, currentQuestion]);
+    setPointerClass('correct');
+    setBorderClass('correct');
+    removeBorder();
   }
 
   function roundLose() {
-    setQuestionId(questionAmount += 1)
-    setLoses([...loses, currentQuestion])
-    setPointerClass('wrong')
+    setQuestionId(questionAmount += 1);
+    setLoses([...loses, currentQuestion]);
+    setBorderClass('wrong');
+    removeBorder();
   }
 };
 

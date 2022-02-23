@@ -69,11 +69,11 @@
     width: 100%;
     border-radius: 20px;
 
-    &_is_right-answer {
+    &.correct {
       border-color: #04e060;
     }
 
-    &_is_wrong-answer {
+    &.wrong {
       border-color: #ff0f03;
     }
   }

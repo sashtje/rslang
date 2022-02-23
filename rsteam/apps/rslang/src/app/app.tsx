@@ -3,11 +3,16 @@ import styles from './app.module.scss';
 import {BrowserRouter} from 'react-router-dom';
 import Navbar from '../components/UI/navbar/Navbar';
 import AppRouter from '../components/AppRouter';
-import { AuthContext } from '../context/index';
+import { AuthContext, GameContext } from '../context/index';
 import { useEffect, useState } from 'react';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+  const [gameSet, setGameSet] = useState({
+    isTxb: false,
+    group: null,
+    page: null
+  });
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -16,15 +21,20 @@ function App() {
   }, []);
 
   return (
-    <AuthContext.Provider value={{
-      isAuth,
-      setIsAuth
+    <GameContext.Provider value={{
+      gameSet,
+      setGameSet
     }}>
-      <BrowserRouter basename='/rslang'>
-        <Navbar />
-        <AppRouter />
-      </BrowserRouter>
-    </AuthContext.Provider>
+      <AuthContext.Provider value={{
+        isAuth,
+        setIsAuth
+      }}>
+        <BrowserRouter basename='/rslang'>
+          <Navbar />
+          <AppRouter />
+        </BrowserRouter>
+      </AuthContext.Provider>
+    </GameContext.Provider>
   );
 }
 

@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {Link} from 'react-router-dom';
+import { GameContext } from 'apps/rslang/src/context';
 
 const Burger = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {gameSet, setGameSet} = useContext(GameContext);
 
   const onBurgerClick = (e) => {
     e.stopPropagation();
@@ -18,6 +20,15 @@ const Burger = () => {
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
+  };
+
+  const onClickGame = () => {
+    const gameFromMenu = {
+      isTxb: false,
+      group: null,
+      page: null
+    };
+    setGameSet(gameFromMenu);
   };
 
   useEffect(() => {
@@ -50,7 +61,7 @@ const Burger = () => {
           </Link>
         </li>
         <li>
-          <Link className="main-menu__link" to='/audiocall'>
+          <Link className="main-menu__link" to='/audiocall' onClick={onClickGame}>
             <span className="main-menu__icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 16 16">
                 <path d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1v-1z"/>
@@ -60,7 +71,7 @@ const Burger = () => {
           </Link>
         </li>
         <li>
-          <Link className="main-menu__link" to='/sprint'>
+          <Link className="main-menu__link" to='/sprint' onClick={onClickGame}>
             <span className="main-menu__icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000000" viewBox="0 0 16 16">
                 <path d="M11.5 6.027a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-1.5 1.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm-6.5-3h1v1h1v1h-1v1h-1v-1h-1v-1h1v-1z"/>
