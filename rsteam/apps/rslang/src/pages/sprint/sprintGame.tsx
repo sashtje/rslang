@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import SprintItem from "./SprintItem";
+import { AuthContext, GameContext } from '../../context';
 
 const SprintGame = () => {
-  let { chosenLvl } = useParams();
+  const {isAuth, setIsAuth} = useContext(AuthContext);
+  const {gameSet, setGameSet} = useContext(GameContext);
+
+  const chosenLvl = gameSet.group + 1;
   let [totalScore, setTotalScore] = useState(0);
   let [questionAmount, setQuestionId] = useState(0);
   const [qOne, setqOne] = useState({eng: '', ru: ''});
@@ -35,28 +39,27 @@ const SprintGame = () => {
   }
 
   useEffect(() => {
-    // choosePage()
+    choosePage()
     // return clearInterval(myTimer)
   }, []);
 
   useEffect(() => {
-    // startGame();
+    startGame();
     // return clearInterval(myTimer)
   }, []);
 
   useEffect(() => {
-    /* const myTimer = setTimeout(countDown, 1000);
+    const myTimer = setTimeout(countDown, 1000);
     if (seconds < 0) {
       clearTimeout(myTimer)
       setGameEnded(true)
     }
-    return () => clearTimeout(myTimer) */
+    return () => clearTimeout(myTimer)
   }, [seconds])
 
 
 
-  // if (gameEnded) {
-    if (true){
+  if (gameEnded) {
     const winItems = wins.map((el, id) => {
       return (
         <div key={id} className="sprintStats__correct">
@@ -99,7 +102,7 @@ const SprintGame = () => {
   return (
     <div className="sprint__wrapper">
       <div className="sprintGame-score">{totalScore}</div>
-      <div className="sprintGame__container">
+      <div className={`sprintGame__container ${borderClass}`}>
         <div className="sprintGame__topLine">
           <div className="sprintGame-timer">{seconds}</div>
 
@@ -175,10 +178,11 @@ const SprintGame = () => {
     newRound()
   }
 
-  function removeBorder() {
+  function removeClasses() {
     setTimeout(() => {
+      setPointerClass('');
       setBorderClass('');
-    }, 1000);
+    }, 200);
   }
 
   function roundWin() {
@@ -187,14 +191,15 @@ const SprintGame = () => {
     setWins([...wins, currentQuestion]);
     setPointerClass('correct');
     setBorderClass('correct');
-    removeBorder();
+    removeClasses();
   }
 
   function roundLose() {
     setQuestionId(questionAmount += 1);
     setLoses([...loses, currentQuestion]);
+    setPointerClass('wrong');
     setBorderClass('wrong');
-    removeBorder();
+    removeClasses();
   }
 };
 

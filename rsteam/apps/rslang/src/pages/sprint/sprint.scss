@@ -241,10 +241,22 @@
 
   &__correct {
     display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+
+    b {
+      margin-right: 5px;
+    }
   }
 
   &__wrong {
     display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+
+    b {
+      margin-right: 5px;
+    }
   }
 
   &__volumeIcon {
