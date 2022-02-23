@@ -53,7 +53,8 @@ const SprintGame = () => {
 
 
 
-  if (gameEnded) {
+  // if (gameEnded) {
+    if (true){
     const winItems = wins.map((el, id) => {
       return (
         <div key={id} className="sprintStats__correct">
@@ -74,7 +75,7 @@ const SprintGame = () => {
     return (
       <div className="sprint__wrapper">
         <div className="sprintStats__container">
-          <h1 className="textbook__title">{title}</h1>
+          <h1 className="sprintStats__title">{title}</h1>
 
           <div className="sprintStats__mistake_block">
             <p><b>Ошибок</b> <span>{loseItems.length}</span></p>

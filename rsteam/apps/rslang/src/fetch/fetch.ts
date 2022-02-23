@@ -65,7 +65,13 @@ const askForStat = async () => {
     const data = await response.data;
 
     return data;
-  } catch {
+  } catch (err) {
+    if (err.message.includes('404')) {
+      return {
+        "learnedWords": 0,
+        "optional": {}
+      }
+    }
     return 'error';
   }
 };
