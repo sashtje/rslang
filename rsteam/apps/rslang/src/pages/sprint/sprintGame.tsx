@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import SprintItem from "./SprintItem";
 import { AuthContext, GameContext } from '../../context';
+import Loader from '../../components/UI/loader/Loader';
 
 const SprintGame = () => {
   const {isAuth, setIsAuth} = useContext(AuthContext);
   const {gameSet, setGameSet} = useContext(GameContext);
+  const [isLoaded, setIsLoaded] = useState(true);
 
-  const chosenLvl = gameSet.group + 1;
   let [totalScore, setTotalScore] = useState(0);
   let [baseScore, setBaseScore] = useState(10);
   let [numSeqRA, setNumSeqRA] = useState(0);
@@ -29,30 +29,9 @@ const SprintGame = () => {
   const [loses, setLoses] = useState([]);
   const [allData, setAllData] = useState([]);
 
-  const [audioRight] = useState(new Audio('../../assets/sound/right.mp3'));
-  const [audioWrong] = useState(new Audio('../../assets/sound/wrong.mp3'));
-  const [audioRound] = useState(new Audio('../../assets/sound/round.mp3'));
-
-  function choosePage() {
-    setQuestionId(0)
-    let v = Math.floor(Math.random() * 30);
-
-    if (!pages.pagesVisited.includes(v)) {
-      setPage({ currentPage: v, pagesVisited: [...pages.pagesVisited, v]})
-    } else {
-      choosePage();
-    }
-  }
-
-  useEffect(() => {
-    choosePage()
-    // return clearInterval(myTimer)
-  }, []);
-
-  useEffect(() => {
-    startGame();
-    // return clearInterval(myTimer)
-  }, []);
+  const [audioRight] = useState(new Audio('./assets/sound/right.mp3'));
+  const [audioWrong] = useState(new Audio('./assets/sound/wrong.mp3'));
+  const [audioRound] = useState(new Audio('./assets/sound/round.mp3'));
 
   useEffect(() => {
     const onKeypress = (e) => {
@@ -76,16 +55,127 @@ const SprintGame = () => {
     };
   }, []);
 
+  function countDown() {
+    const newSeconds = +seconds - 1;
+    setSeconds(newSeconds);
+  }
+
   useEffect(() => {
+    if (isLoaded) return;
+
     const myTimer = setTimeout(countDown, 1000);
     if (seconds < 0) {
-      clearTimeout(myTimer)
-      setGameEnded(true)
+      clearTimeout(myTimer);
+      setGameEnded(true);
     }
-    return () => clearTimeout(myTimer)
-  }, [seconds])
+    return () => clearTimeout(myTimer);
+  }, [seconds]);
 
 
+  
+  useEffect(() => {
+    startGame();
+  }, []);
+
+  async function newRound() {
+    setRoundEnded(false)
+    try {
+      const response = await axios({
+        url: `https://react-learnwords-rs.herokuapp.com/words?group=0&page=${pages.currentPage}`,
+        headers: { accept: 'application/json' },
+      });
+      const data = await response.data;
+      setAllData([...allData, data[questionAmount]])
+      setqOne({eng: data[questionAmount].word, ru: data[questionAmount].wordTranslate});
+      qOne = {eng: data[questionAmount].word, ru: data[questionAmount].wordTranslate};
+
+      const oneOrTwo = Math.floor(Math.random() * 2);
+      const answ = oneOrTwo == 0 ? data[questionAmount].wordTranslate : data[Math.floor(Math.random() * 20)].wordTranslate;
+      setqTwo(answ);
+      qTwo = answ;
+
+      setCurrentQuestion({
+        id: data[questionAmount].id,
+        eng: data[questionAmount].word,
+        ru: data[questionAmount].wordTranslate,
+        audio: data[questionAmount].audio
+      })
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+
+  function checkAnswer(bool) {
+    if((qOne.ru === qTwo) === bool) {
+      roundWin();
+    } else {
+      roundLose();
+    }
+  }
+
+  
+
+
+  function startGame() {
+    newRound()
+  }
+
+  function removeClasses() {
+    setTimeout(() => {
+      setPointerClass('');
+      setBorderClass('');
+    }, 200);
+  }
+
+  function roundWin() {
+    setNumSeqRA(numSeqRA += 1);
+    if (numSeqRA % 4 === 0) {
+      if (baseScore < 80) {
+        setBaseScore(baseScore *= 2);
+      }
+      audioWrong.pause();
+      audioRight.pause();
+      audioRound.currentTime = 0;
+      audioRound.play();
+    } else {
+      audioWrong.pause();
+      audioRound.pause();
+      audioRight.currentTime = 0;
+      audioRight.play();
+    }
+
+    setTotalScore(totalScore += baseScore);
+    setQuestionId(questionAmount += 1);
+    setWins([...wins, currentQuestion]);
+    setPointerClass('correct');
+    setBorderClass('correct');
+    removeClasses();
+  }
+
+  function roundLose() {
+    setBaseScore(baseScore = 10);
+    setNumSeqRA(numSeqRA = 0);
+    audioRight.pause();
+    audioRound.pause();
+    audioWrong.currentTime = 0;
+    audioWrong.play();
+    setQuestionId(questionAmount += 1);
+    setLoses([...loses, currentQuestion]);
+    setPointerClass('wrong');
+    setBorderClass('wrong');
+    removeClasses();
+  }
+
+  if (isLoaded) {
+    return (
+      <div className='sprint__wrapper'>
+        <Loader />
+      </div>
+    );
+  }
 
   if (gameEnded) {
     const winItems = wins.map((el, id) => {
@@ -149,109 +239,6 @@ const SprintGame = () => {
       </div>
     </div>
   );
-
-  async function newRound() {
-    setRoundEnded(false)
-    try {
-      const response = await axios({
-        url: `https://react-learnwords-rs.herokuapp.com/words?group=${chosenLvl}&page=${pages.currentPage}`,
-        headers: { accept: 'application/json' },
-      });
-      const data = await response.data;
-      setAllData([...allData, data[questionAmount]])
-      setqOne({eng: data[questionAmount].word, ru: data[questionAmount].wordTranslate});
-      qOne = {eng: data[questionAmount].word, ru: data[questionAmount].wordTranslate};
-
-      const oneOrTwo = Math.floor(Math.random() * 2);
-      const answ = oneOrTwo == 0 ? data[questionAmount].wordTranslate : data[Math.floor(Math.random() * 20)].wordTranslate;
-      setqTwo(answ);
-      qTwo = answ;
-
-      setCurrentQuestion({
-        id: data[questionAmount].id,
-        eng: data[questionAmount].word,
-        ru: data[questionAmount].wordTranslate,
-        audio: data[questionAmount].audio
-      })
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-
-
-  function checkAnswer(bool) {
-    if((qOne.ru === qTwo) === bool) {
-      roundWin();
-    } else {
-      roundLose();
-    }
-
-    if (questionAmount < 20) {
-      newRound()
-    } else {
-      choosePage()
-      setRoundEnded(true)
-      newRound()
-    }
-  }
-
-  function countDown() {
-    const newSeconds = +seconds - 1
-    setSeconds(newSeconds)
-  }
-
-
-  function startGame() {
-    newRound()
-  }
-
-  function removeClasses() {
-    setTimeout(() => {
-      setPointerClass('');
-      setBorderClass('');
-    }, 200);
-  }
-
-  function roundWin() {
-    setNumSeqRA(numSeqRA += 1);
-    if (numSeqRA % 4 === 0) {
-      if (baseScore < 80) {
-        setBaseScore(baseScore *= 2);
-      }
-      audioWrong.pause();
-      audioRight.pause();
-      audioRound.currentTime = 0;
-      audioRound.play();
-    } else {
-      audioWrong.pause();
-      audioRound.pause();
-      audioRight.currentTime = 0;
-      audioRight.play();
-    }
-
-    setTotalScore(totalScore += baseScore);
-    setQuestionId(questionAmount += 1);
-    setWins([...wins, currentQuestion]);
-    setPointerClass('correct');
-    setBorderClass('correct');
-    removeClasses();
-  }
-
-  function roundLose() {
-    setBaseScore(baseScore = 10);
-    setNumSeqRA(numSeqRA = 0);
-    audioRight.pause();
-    audioRound.pause();
-    audioWrong.currentTime = 0;
-    audioWrong.play();
-    setQuestionId(questionAmount += 1);
-    setLoses([...loses, currentQuestion]);
-    setPointerClass('wrong');
-    setBorderClass('wrong');
-    removeClasses();
-  }
 };
 
 export default SprintGame;
