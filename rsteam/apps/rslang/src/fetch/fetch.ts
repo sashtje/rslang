@@ -76,7 +76,6 @@ const askForStat = async () => {
   }
 };
 
-
 //return obj stat with statistics or 'error' if error occured
 const getGeneralStat = async () => {
   try {
@@ -152,6 +151,30 @@ export const getHardWords = async () => {
     const data = await response.data[0].paginatedResults;
 
     console.log('getHardWords ', data);
+
+    return data;
+  } catch {
+    return 'error';
+  }
+};
+
+const fetchLearnedWords = async (group) => {
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+
+  try {
+    const response = await axios({
+      url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/aggregatedWords?wordsPerPage=3600&filter={"$and":[{"group":${group}},{"userWord.difficulty":"learned"}]}`,
+      method: 'get',
+      headers: {
+        "accept" : "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    const data = await response.data[0].paginatedResults;
+
+    console.log('fetchLearnedWords ', data);
 
     return data;
   } catch {
@@ -245,6 +268,24 @@ const createWordData = async (wordId, wordData) => {
     });
 
     const data = await response.data;
+
+    return data;
+  } catch {
+    return 'error';
+  }
+};
+
+const fetchFromMenuSprint = async (group, pages) => {
+  try {
+    const response = await Promise.all(pages.map((page) => axios({
+      url: `https://react-learnwords-rs.herokuapp.com/words?group=${group}&page=${page}`,
+      headers: { accept: 'application/json' },
+    })));
+
+    let data = [];
+    for (let i = 0; i < response.length; i++) {
+      data = [...data, ...response[i].data];
+    }
 
     return data;
   } catch {
@@ -389,6 +430,79 @@ export const createSafeWordData = async (wordId, wordData) => {
 
     answ = await createWordData(wordId, wordData);
     return answ;
+  } catch {
+    return 'error';
+  }
+};
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomArr(length) {
+  const pages = [];
+
+  while (pages.length < length) {
+    const newPage = getRandomIntInclusive(0, 29);
+
+    if (!pages.includes(newPage)) {
+      pages.push(newPage);
+    }
+  }
+
+  return pages;
+}
+
+export const fetchSafeFromMenuSprint = async (group) => {
+  const pages = getRandomArr(3);
+
+  const data = fetchFromMenuSprint(group, pages);
+
+  return data;
+};
+
+export const fetchSafeFromTextbook = async (group, page) => {
+  const pages = [page];
+  if (page - 1 >= 0) {
+    pages.push(page - 1);
+
+    if (page - 2 >= 0) {
+      pages.push(page - 2);
+    }
+  }
+
+  const data = fetchFromMenuSprint(group, pages);
+
+  return data;
+};
+
+export const fetchSafeFromTextbookAuth = async (group, page) => {
+  const pages = [];
+  while (page >= 0) {
+    pages.push(page);
+    page--;
+  }
+
+  const data = fetchFromMenuSprint(group, pages);
+
+  return data;
+};
+
+export const fetchSafeLearnedWords = async (group) => {
+  try {
+    let learnedWords = await fetchLearnedWords(group);
+
+    if (learnedWords !== 'error') {
+      return learnedWords;
+    }
+
+    await getNewToken();
+
+    learnedWords = await fetchLearnedWords(group);
+    return learnedWords;
   } catch {
     return 'error';
   }

@@ -19,7 +19,7 @@ const Home = () => {
               <p className='home-intro__subtitle'>Эффективный, увлекательный и абсолютно бесплатный способ выучить английский язык. Пополняй с нами свой словарный запас каждый день и открой для себя окно в мир новых удивительных возможностей.</p>
               <div className='home-intro__controls'>
                 <Link className='btn' to='/sign-up'>Записаться</Link>
-                <a className='btn btn_is_about' href="/rslang/#home-features">Подробнее</a>
+                <a className='btn btn_is_about' href="#home-features">Подробнее</a>
               </div>
             </section>
 

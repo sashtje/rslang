@@ -39,11 +39,9 @@ export function createOptions(num, arr, func) {
   return items
 }
 
-
-
-
-function shuffle(array) {
-  let currentIndex = array.length,  randomIndex;
+export function shuffle(array) {
+  let currentIndex = array.length;
+  let randomIndex;
 
   // While there remain elements to shuffle...
   while (currentIndex != 0) {
@@ -59,4 +57,3 @@ function shuffle(array) {
 
   return array;
 }
-

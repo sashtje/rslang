@@ -13,7 +13,7 @@ const SprintItem = ({cl, arr, el}) => {
   return (
     <div className={`sprintStats__${cl}`}>
       <div className="sprintStats__play-btn" onClick={()=>playAudio()}></div>
-      <b>{el.eng}</b> - {el.ru}
+      <b>{el.word}</b> - {el.wordTranslate}
     </div>
   )
 }
