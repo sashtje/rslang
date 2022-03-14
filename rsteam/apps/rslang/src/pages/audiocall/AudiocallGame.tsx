@@ -26,15 +26,6 @@ const AudiocallGame = () => {
     getNewQuestions();
   }, []);
 
-  // useEffect(() => {
-  //   const myTimer = setTimeout(countDown, 1000);
-  //   if (seconds < 0) {
-  //     clearTimeout(myTimer)
-  //     checkAnswer(false)
-  //   }
-  //   return () => clearTimeout(myTimer)
-  // }, [seconds])
-
   useEffect(() => {
     startGame()
   }, [questionPack]);
