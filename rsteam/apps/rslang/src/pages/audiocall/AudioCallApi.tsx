@@ -1,42 +1,23 @@
-import React from "react";
-
-export function drawLives(num) {
-  let items = []
-
-  for (let i = 1; i <= 5; i++) {
-    items.push(<div key={i} className={`audioGame__live ${i <= num ? 'active' : ''}`}></div>)
-  }
-  return items
-}
-
-export function getNewPage(arr) {
-  let v = Math.floor(Math.random() * 30);
-  if (arr.includes(v)) {
-    getNewPage(arr)
-  }
-  return v
-}
-
-export function playAudio(audio) {
-  audio.currentTime = 0;
-  audio.play();
-}
-
-export function createOptions(num, arr, func) {
+export function createOptions(numCurrQ, allData, numberAllQuestions) {
   let items = [];
-  const numArr = [];
-  items.push(<div key={4} className="audioGame__option" onClick={()=>func(true)}>{arr[num].wordTranslate}</div>)
+  const numArr = [numCurrQ];
 
-  for (let i = 0; i < 3; i++) {
-    let v = Math.floor(Math.random() * 20);
-    while (num === v || numArr.includes(v)) {
-      v = Math.floor(Math.random() * 20);
+  items.push(allData[numCurrQ].wordTranslate);
+
+  for (let i = 0; i < 4; i++) {
+    let numberOpt = Math.floor(Math.random() * numberAllQuestions);
+
+    while (numArr.includes(numberOpt)) {
+      numberOpt = Math.floor(Math.random() * numberAllQuestions);
     }
-    numArr.push(v)
-    items.push(<div key={i} className="audioGame__option" onClick={()=>func(false)}>{arr[v].wordTranslate}</div>)
+
+    numArr.push(numberOpt);
+    items.push(allData[numberOpt].wordTranslate);
   }
-  items = shuffle(items)
-  return items
+
+  items = shuffle(items);
+
+  return items;
 }
 
 export function shuffle(array) {

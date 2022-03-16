@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useContext } from 'react';
 import SprintItem from "./SprintItem";
 import { AuthContext, GameContext } from '../../context';
 import Loader from '../../components/UI/loader/Loader';
@@ -56,7 +55,7 @@ const SprintGame = () => {
 
   useEffect(() => {
     const onKeypress = (e) => {
-      if (gameEnded || isLoaded) return;
+      if (gameEnded || isLoaded || showError || showNotEnoughWords) return;
 
       console.log('hello');
 
@@ -167,6 +166,9 @@ const SprintGame = () => {
       }
     }
 
+    if (numSeqRA > stat.stats.sprint.longestBingo) {
+      stat.stats.sprint.longestBingo = numSeqRA;
+    }
     stat.stats.sprint.numberRightAnswers++;
     stat.stats.sprint.numberAllAnswers++;
     stat.stats.all.numberRightAnswers++;
@@ -174,7 +176,9 @@ const SprintGame = () => {
   }
 
   function roundWin() {
-    writeWinStat();
+    if (isAuth || localStorage.getItem('token')) {
+      writeWinStat();
+    }
 
     setNumSeqRA(numSeqRA += 1);
     if (numSeqRA % 4 === 0) {
@@ -227,7 +231,9 @@ const SprintGame = () => {
   }
 
   function roundLose() {
-    writeLoseStat();
+    if (isAuth || localStorage.getItem('token')) {
+      writeLoseStat();
+    }
 
     setBaseScore(baseScore = 10);
     setNumSeqRA(numSeqRA = 0);
@@ -420,36 +426,21 @@ const SprintGame = () => {
   }
 
   if (gameEnded) {
-    const winItems = wins.map((el, id) => {
-      return (
-        <div key={id} className="sprintStats__correct">
-          <b>{el.word}</b> - {el.wordTranslate}
-        </div>
-      )
-    })
-    const loseItems = loses.map((el, id) => {
-      return (
-        <div key={id} className="sprintStats__mistake">
-          <b>{el.word}</b> - {el.wordTranslate}
-        </div>
-      )
-    })
-
-    const title = winItems.length > loseItems.length ? 'Молодец' : 'Попробуй ещё раз'
-
     return (
       <div className="sprint__wrapper">
         <div className="sprintStats__container">
-          <h1 className="sprintStats__title">{title}</h1>
+          <h1 className="sprintStats__title">
+            {wins.length > loses.length ? 'Молодец' : 'Попробуй ещё раз'}
+          </h1>
 
           <div className="sprintStats__mistake_block">
-            <p><b>Ошибок</b> <span>{loseItems.length}</span></p>
+            <p><b>Ошибок</b> <span>{loses.length}</span></p>
             {loses.map((el, id) => {
               return <SprintItem key={id} cl='wrong' arr={allData} el={el}/>
             })}
           </div>
           <div className="sprintStats__correct_block">
-            <p><b>Знаю</b> <span>{winItems.length}</span></p>
+            <p><b>Знаю</b> <span>{wins.length}</span></p>
             {wins.map((el, id) => {
               return <SprintItem key={id} cl='correct' arr={allData} el={el}/>
             })}
