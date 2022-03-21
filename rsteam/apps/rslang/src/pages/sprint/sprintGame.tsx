@@ -75,7 +75,7 @@ const SprintGame = () => {
     return () => {
       document.removeEventListener('keydown', onKeypress);
     };
-  }, [isLoaded]);
+  }, [isLoaded, gameEnded, showError, showNotEnoughWords]);
 
   function countDown() {
     const newSeconds = +seconds - 1;

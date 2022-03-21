@@ -60,10 +60,16 @@ const AudiocallGame = () => {
 
   useEffect(() => {
     const onKeypress = (e) => {
+      e.preventDefault();
+      console.log(e);
+      console.log(gameEnded, isLoaded, showError, showNotEnoughWords, showAnswer);
       if (gameEnded || isLoaded || showError || showNotEnoughWords) return;
 
       if (e.code === 'Space') {
+        console.log('showAnswer before ', showAnswer);
+        console.log('space keydown');
         handlerBtn(undefined);
+        console.log('showAnswer after ', showAnswer);
         return;
       }
 
@@ -81,7 +87,7 @@ const AudiocallGame = () => {
     return () => {
       document.removeEventListener('keydown', onKeypress);
     };
-  }, [isLoaded]);
+  }, [isLoaded, gameEnded, showError, showNotEnoughWords, showAnswer, options]);
 
   function setNumberRightAnswer() {
     for (let i = 0; i < options.length; i++) {
@@ -93,9 +99,6 @@ const AudiocallGame = () => {
   }
 
   function checkAnswer(opt) {
-    console.log(options);
-    console.log(currentQuestion);
-
     if (opt === undefined) {
       setNumChosenAnsw(numChosenAnsw = undefined);
       setNumberRightAnswer();
@@ -264,15 +267,9 @@ const AudiocallGame = () => {
           //from Textbook
           data = await fetchSafeFromTextbookAuth(gameSet.group, gameSet.page);
           if (data !== 'error') {
-            console.log('data before filter ', data);
-
             const learnedWords = await fetchSafeLearnedWords(gameSet.group);
 
-            console.log('learnedWords ', learnedWords);
-
             data = data.filter((item) => isNotInclude(learnedWords, item));
-
-            console.log('data after filter ', data);
           }
         }
 
@@ -322,7 +319,6 @@ const AudiocallGame = () => {
         }
       }
     }
-    console.log('data for game ', data);
 
     setAllData(allData = (data as any[]));
 
@@ -378,10 +374,6 @@ const AudiocallGame = () => {
     if (!showAnswer) {
       return 'audioGame__option-number';
     }
-
-    console.log('num ', num);
-    console.log('numRightAnsw ', numRightAnsw);
-    console.log('numChosenAnsw ', numChosenAnsw);
 
     if (num === numRightAnsw) {
       return 'audioGame__option-number audioGame__option-number-right';
