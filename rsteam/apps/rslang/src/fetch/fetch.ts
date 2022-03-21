@@ -98,8 +98,6 @@ export const getInfoAboutWords = async (words) => {
   const userId = localStorage.getItem('userId');
   const token = localStorage.getItem('token');
 
-  console.log('getInfoAboutWords words ',words);
-
   try {
     const response = await Promise.allSettled(words.map((word) => axios({
       url: `https://react-learnwords-rs.herokuapp.com/users/${userId}/words/${word.id}`,
@@ -109,8 +107,6 @@ export const getInfoAboutWords = async (words) => {
         "Authorization": `Bearer ${token}`
       }
     })));
-
-    console.log('getInfoAboutWords response ', response);
 
     const data = response.map((res) => {
       if (res.status === 'fulfilled') {
@@ -125,8 +121,6 @@ export const getInfoAboutWords = async (words) => {
         };
       }
     });
-
-    console.log('getInfoAboutWords ', data);
 
     return data;
   } catch {
@@ -150,8 +144,6 @@ export const getHardWords = async () => {
 
     const data = await response.data[0].paginatedResults;
 
-    console.log('getHardWords ', data);
-
     return data;
   } catch {
     return 'error';
@@ -173,8 +165,6 @@ const fetchLearnedWords = async (group) => {
     });
 
     const data = await response.data[0].paginatedResults;
-
-    console.log('fetchLearnedWords ', data);
 
     return data;
   } catch {
@@ -202,8 +192,6 @@ export const getInfoAboutAllPages = async (group) => {
     }
     const response = await Promise.allSettled(arrPromises);
 
-    console.log('getInfoAboutAllPages response ', response);
-
     const data = response.map((res) => {
       if (res.status === 'fulfilled') {
         return res.value.data[0].paginatedResults.length;
@@ -214,8 +202,6 @@ export const getInfoAboutAllPages = async (group) => {
         return 0;
       }
     });
-
-    console.log('getInfoAboutAllPages ', data);
 
     return data;
   } catch {
@@ -228,8 +214,6 @@ const updateWordData = async (wordId, wordData) => {
   const token = localStorage.getItem('token');
   delete wordData.id;
   delete wordData.wordId;
-
-  console.log(wordData);
 
   try {
     const response = await axios({

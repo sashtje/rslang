@@ -57,8 +57,6 @@ const SprintGame = () => {
     const onKeypress = (e) => {
       if (gameEnded || isLoaded || showError || showNotEnoughWords) return;
 
-      console.log('hello');
-
       if (e.code === 'ArrowLeft') {
         checkAnswer(false);
         return;
@@ -295,15 +293,9 @@ const SprintGame = () => {
           //from Textbook
           data = await fetchSafeFromTextbookAuth(gameSet.group, gameSet.page);
           if (data !== 'error') {
-            console.log('data before filter ', data);
-
             const learnedWords = await fetchSafeLearnedWords(gameSet.group);
 
-            console.log('learnedWords ', learnedWords);
-
             data = data.filter((item) => isNotInclude(learnedWords, item));
-
-            console.log('data after filter ', data);
           }
         }
 
@@ -353,8 +345,6 @@ const SprintGame = () => {
         }
       }
     }
-    console.log('data for game ', data);
-
     setAllData(allData = (data as any[]));
 
     setNumberQ(numberQ = allData.length);

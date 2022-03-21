@@ -97,8 +97,6 @@ const Words = () => {
       //download all info about words and pagination
       const userWords = await getSafeInfoAboutWords(data);
       if (userWords === "error") {
-        console.log('userWords');
-
         setIsAuth(false);
         localStorage.clear();
         return;
@@ -106,8 +104,6 @@ const Words = () => {
       setWordsUser(userWords as any[]);
       const pagWords = await getSafeInfoAboutAllPages(getNumberGroup());
       if (pagWords === "error") {
-        console.log('pagWords');
-
         setIsAuth(false);
         localStorage.clear();
         return;

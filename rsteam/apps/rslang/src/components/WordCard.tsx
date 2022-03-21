@@ -121,7 +121,6 @@ const WordCard = (
   };
 
   const returnUpToDateStat = (date) => {
-    console.log(stat);
     if (stat.optional.stats.date !== date) {
       stat.optional.stats.date = date;
       stat.optional.stats.sprint = getDefaultGames();
@@ -206,7 +205,6 @@ const WordCard = (
 
       const newArr = wordsPagPerPage.slice(0);
       newArr[page - 1]--;
-      console.log('Pagination ', newArr);
       setWordsPagPerPage(newArr);
 
     } else if (userWord?.difficulty === 'learned') {
@@ -259,7 +257,6 @@ const WordCard = (
 
       const newArr = wordsPagPerPage.slice(0);
       newArr[page - 1]++;
-      console.log('Pagination ', newArr);
       setWordsPagPerPage(newArr);
 
       if (isNewWord) {
@@ -337,7 +334,6 @@ const WordCard = (
 
       const newArr = wordsPagPerPage.slice(0);
       newArr[page - 1]--;
-      console.log('Pagination ', newArr);
       setWordsPagPerPage(newArr);
 
       let newStat = returnUpToDateStat(date);
@@ -374,7 +370,6 @@ const WordCard = (
 
       const newArr = wordsPagPerPage.slice(0);
       newArr[page - 1]++;
-      console.log('Pagination ', newArr);
       setWordsPagPerPage(newArr);
 
       if (isNewWord) {

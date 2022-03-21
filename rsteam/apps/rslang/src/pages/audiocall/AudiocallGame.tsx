@@ -61,15 +61,10 @@ const AudiocallGame = () => {
   useEffect(() => {
     const onKeypress = (e) => {
       e.preventDefault();
-      console.log(e);
-      console.log(gameEnded, isLoaded, showError, showNotEnoughWords, showAnswer);
       if (gameEnded || isLoaded || showError || showNotEnoughWords) return;
 
       if (e.code === 'Space') {
-        console.log('showAnswer before ', showAnswer);
-        console.log('space keydown');
         handlerBtn(undefined);
-        console.log('showAnswer after ', showAnswer);
         return;
       }
 
