@@ -15,6 +15,10 @@
 - Rest Api
 - [Amcharts](https://www.amcharts.com/)
 
+## Test user:
+**Login**: test@gmail.com
+**Password**: 12345678
+
 ## Team Memebers:
 - **Team Lead** [Sashtje](https://github.com/sashtje)
 - **Developer** [Inv1nc1ble](https://github.com/Inv1nc1ble)
@@ -27,3 +31,7 @@
 [Click here to open the App](https://sashtje.github.io/rslang/)
 
 Last code version of the App is located in branch ["develop"](https://github.com/sashtje/rslang/tree/develop)
+
+## Сommands to run or build code:
+npx nx serve rslang
+npx nx build rslang
