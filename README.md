@@ -17,6 +17,7 @@
 
 ## Test user:
 **Login**: test@gmail.com
+
 **Password**: 12345678
 
 ## Team Memebers:
@@ -34,4 +35,5 @@ Last code version of the App is located in branch ["develop"](https://github.com
 
 ## Сommands to run or build code:
 npx nx serve rslang
+
 npx nx build rslang
