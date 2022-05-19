@@ -16,6 +16,8 @@
 - [Amcharts](https://www.amcharts.com/)
 
 ## Test user:
+You can login as this test user to check statistics page and other statistics on the textbook pages. Or, if you would like, you can create your own login.
+
 **Login**: test@gmail.com
 
 **Password**: 12345678
