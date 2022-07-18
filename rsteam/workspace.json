@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "rslang": "apps/rslang",
+    "rslang-e2e": "apps/rslang-e2e"
+  }
+}
